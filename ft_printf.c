@@ -11,7 +11,10 @@
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "ft_printf.h"
 #include <stdarg.h>
+
+#include <stdio.h>
 
 void	ft_putnstr(const char *str, int n)
 {
@@ -96,7 +99,33 @@ int		ft_printf(const char *format, ...)
 int		main(int argc, char **argv)
 {
 	char c = 'k';
+	int  i = 2000000000;
+	char *s = "123456789s";
 	int num = 14506;
-	ft_printf("hello = %c int = %d\n", c, 14506);
+	printf("c = %-2c\n", c);
+//	printf("c = %+c\n", c);
+//	printf("c = %#c\n", c);
+//	printf("c = %0c\n", c);
+//	printf("c = % c\n", c);
+//	printf("c = %c\n", c);
+
+	printf("s = %-50s\n", s);
+//	printf("s = %+s\n", s);
+//	printf("s = %#s\n", s);
+//	printf("s = %0s\n", s);
+//	printf("s = % s\n", s);
+	printf("s = %50s\n", s);
+
+
+	printf("i = %-4d\n", i);
+	printf("i = %+4d\n", i);
+//	printf("i = %#d\n", i);
+	printf("i = %010d\n", i);
+	printf("i = % d\n", i);
+	printf("i = %1d\n", i);
+	printf("i = %10d\n", i);
+	printf("i = %-10d\n", i);
+	printf("i = %+10d\n", i);
+	//ft_printf("hello = %c int = %d\n", c, 14506);
 	return (0);
 }
