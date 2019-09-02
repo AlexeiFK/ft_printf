@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 17:55:26 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/01 22:57:21 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/02 22:07:27 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ int		main(int argc, char **argv)
 
 	//ft_printf("hello = %c int = %d\n", c, 14506);
 	*/
-
+/*
 	t_specs		s;
 	char		c;
 	long long int lli = LLONG_MIN;
@@ -165,9 +165,15 @@ int		main(int argc, char **argv)
 	itoa = ft_itoa_base(lli, 10, 1);
 	itoa_u = ft_itoa_base_u(ulli, 10, 1);
 	printf("ftitoa = %s\nllitoa = %llu\n", itoa_u, ulli);	
-	printf("itoa9 = %s\nitoa9 = %.5lld\n", itoa, lli9);
-	ft_putstr(itoa);
+	specs_init(&s);
+	s.prec = 10;
+	s.width = 20;
 	ft_putchar('\n');
+	print_int(&s, lli9);
+	ft_putchar('\n');
+//	itoa = ft_itoa_base(lli9, 10, 1);
+	printf("%20.10lld\n",lli9);
+	ft_putstr(itoa);
 	ft_putchar('\n');
 	ft_putchar('\n');
 	ft_putchar('\n');
@@ -177,7 +183,7 @@ int		main(int argc, char **argv)
 	s.minus = 1;
 	s.width = 10;
 	s.prec = 3;
-	s.base = 10;
+	s.base = 16;
 	s.is_upper = 1;
 	print_char(&s, c);
 	ft_putchar('\n');
@@ -192,7 +198,35 @@ int		main(int argc, char **argv)
 	ft_putchar('\n');
 	print_int(&s, lli);
 	ft_putchar('\n');
-	print_uint(&s, lli);
+//	printf("%#p\n", p);
+//	printf("%llo\n", lli2);
+//	print_uint(&s, p);
 	ft_putchar('\n');
+	ft_putchar('\n');
+	printf("%d\n", printf("%#x", 255));
+	*/
+	t_specs		s;
+	int im;
+	int ip;
+	int lli9 = 12379;
+	void	*p;
+	specs_init(&s);
+	s.prec = 5;
+	s.width = 10;
+	s.plus = 0;
+//	s.minus = 1;
+	im = print_flag_x(&s, lli9);
+	printf("\n");
+	ip = printf("%10.5x", lli9);
+	printf("\n-----%d-----------%d--------\n", im, ip);
+	specs_init(&s);
+	im = print_flag_p(&s, p);
+	printf("\n");
+	ip = printf("%p", p);
+	printf("\n-----%d-----------%d--------\n", im, ip);
+	im = print_flag_x(&s, lli9);
+	printf("\n");
+	ip = printf("%10.5x", lli9);
+	printf("\n-----%d-----------%d--------\n", im, ip);
 	return (0);
 }
