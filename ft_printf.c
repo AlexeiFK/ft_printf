@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 17:55:26 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/02 22:07:27 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/02 22:52:53 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,9 +224,20 @@ int		main(int argc, char **argv)
 	printf("\n");
 	ip = printf("%p", p);
 	printf("\n-----%d-----------%d--------\n", im, ip);
+	specs_init(&s);
 	im = print_flag_x(&s, lli9);
 	printf("\n");
-	ip = printf("%10.5x", lli9);
+	ip = printf("%x", lli9);
+	printf("\n-----%d-----------%d--------\n", im, ip);
+	specs_init(&s);
+	s.prec = 5;
+	s.width = 10;
+	s.plus = 0;
+	s.minus = 1;
+	s.sharp = 1;
+	im = print_flag_x(&s, lli9);
+	printf("\n");
+	ip = printf("%#10.5x", lli9);
 	printf("\n-----%d-----------%d--------\n", im, ip);
 	return (0);
 }

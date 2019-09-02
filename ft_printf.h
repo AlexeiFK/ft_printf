@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/01 14:20:31 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/02 22:07:30 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/02 22:53:50 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ typedef struct			s_specs
 
 /*
  ** 	maybe return size_t instead of int
+ **		0x in width
+ **		add buffer ARGH!
 */
 int		put_empty_symbols(unsigned char c, int n, int fd);
 
