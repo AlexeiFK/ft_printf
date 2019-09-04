@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 17:19:58 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/04 20:19:08 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/04 23:02:21 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ unsigned char	get_sign(void *mem, int size)
 	return (bit);
 }
 
-unsigned short int		get_exp(void *mem, int size)
+signed short int		get_exp(void *mem, int size)
 {
 	unsigned char		*str;
 	unsigned short int	exp;
@@ -89,7 +89,63 @@ unsigned short int		get_exp(void *mem, int size)
 
 unsigned long long int	get_mant(void *mem, int size)
 {
+	unsigned char			*str;
+	int						i;
+	unsigned long long int	mant;
+	unsigned long long int	tmp[7];
+	t_specs					s;
 
+	i = 0;
+	mant = 0;
+	str = (unsigned char*)mem;
+	specs_init(&s);
+	s.base = 2;
+	size -= 2;
+//	ft_putchar('\n');
+	while (size >= 0)
+	{
+//		print_flag_u_hh(&s, (str[size]));
+		if (i == 0)
+			tmp[i] = str[size] & 15;
+		else
+			tmp[i] = str[size];
+	//	ft_putstr("i=");
+	//	ft_putnbr(i);
+	//	ft_putstr("|");
+//		print_flag_u_ll(&s, tmp[i]);
+//		ft_putchar('o');
+		size--;
+		i++;
+	}
+	mant = (tmp[6]) | (tmp[5] << 8) | (tmp[4] << 16)
+		| (tmp[3] << 24) | (tmp[2] << 32) | (tmp[1] << 40) | (tmp[0] << 48);
+	return (mant);
+}
+
+void			apply_exp(unsigned long long int mant,
+				unsigned long long int *m_int,
+				unsigned long long int *m_fra,
+				signed short int exp)
+{
+	t_specs					s;
+	unsigned long long int one;
+	unsigned long long int mask;
+
+	mask = 0x000fffffffffffff;
+//	mask = 0xfff0000000000000;
+//	mask = ~mask;
+	one = 1;
+	specs_init(&s);
+	s.base = 2;
+	mant = mant | (one << 52);
+	*m_int = mant >> (52 - exp);
+	*m_fra = mant << (1 + exp);
+	*m_fra = *m_fra & mask;
+// 	*m_fra = *m_fra >> (1 + exp);
+//	ft_putstr("\nmask\n");
+//	print_flag_u_ll(&s, mask);
+//	ft_putstr("\nmask\n");
+	print_flag_u_ll(&s, mant);
 }
 
 int				print_double(t_specs *s, double f)
@@ -99,6 +155,7 @@ int				print_double(t_specs *s, double f)
 	t_float			fbit;
 	char	*str;
 	t_floatd		fl;
+	int				nnn;
 	t_specs		s2;
 //	unsigned char	*mem;
 
@@ -113,6 +170,31 @@ int				print_double(t_specs *s, double f)
 	specs_init(&s2);
 	s2.base = 2;
 	print_flag_u_h(&s2, fl.exp);
+	fl.mant = get_mant(&f, sizeof(f));
+	ft_putchar('\n');
+	nnn = print_flag_u_ll(&s2, fl.mant);
+	ft_putstr("\n---------mant----------\n");
+	apply_exp(fl.mant, &fl.mant_int, &fl.mant_fra,fl.exp - 1023);
+	ft_putstr("\n-\n");
+	ft_putnbr(nnn);
+	ft_putstr("\n---------exp----------\n");
+	s2.base = 10;
+	print_flag_di_h(&s2, fl.exp - 1023);
+	ft_putstr("\n---------mant----------\n");
+	print_flag_u_ll(&s2, fl.mant);
+	ft_putstr("\n---------mant----------\n");
+	apply_exp(fl.mant, &fl.mant_int, &fl.mant_fra,fl.exp - 1023);
+	ft_putstr("\n---------final res----------\n");
+	s2.base = 2;
+	ft_putstr("\n---------mantd----------\n");
+	print_flag_u_ll(&s2, fl.mant_int);
+	ft_putstr("\n---------mantf----------\n");
+	print_flag_u_ll(&s2, fl.mant_fra);
+	s2.base = 10;
+	ft_putstr("\n---------mantd----------\n");
+	print_flag_u_ll(&s2, fl.mant_int);
+	ft_putstr("\n---------mantf----------\n");
+	print_flag_u_ll(&s2, fl.mant_fra);
 //	fbit.f = f;
 //	str = ft_itoa_base_u(fbit.d, 2 , 1);
 //	ft_putstr(str);

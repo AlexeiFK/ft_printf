@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/01 14:20:31 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/04 19:39:10 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/04 22:00:52 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,9 @@ typedef struct				s_floatd
 {
 	unsigned char			sign;
 	unsigned long long int	mant;
-	unsigned short int		exp;
+	unsigned long long int	mant_int;
+	unsigned long long int	mant_fra;
+	signed short int		exp;
 }							t_floatd;
 
 /*

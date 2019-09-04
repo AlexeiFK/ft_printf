@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 17:55:26 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/04 19:37:20 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/04 23:07:40 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -390,11 +390,11 @@ int		main(int argc, char **argv)
 	ip = printf("%X", c255);
 	printf("\n-----%d-----------%d--------\n", im, ip);
 	specs_init(&s);
-	double fl123 = -123456;
+	double fl123 = 1230000000;
 //	print_mem(&fl123, sizeof(fl123));
 	s.sharp = 1;
 	print_double(&s, fl123);
 	printf("\n");
-//	printf("%a", fl123);
+	printf("%f", fl123);
 	return (0);
 }
