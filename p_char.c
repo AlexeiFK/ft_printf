@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/01 14:20:00 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/02 21:43:01 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/04 16:36:02 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,19 @@ int		print_char(t_specs *s, unsigned char c)
 int		print_string(t_specs *s, char *str)
 {
 	int		len;
+	int		tmp_len;
 	int		n_printed;
 
 	len = ft_strlen(str);
-	if (s->prec < len)
+	tmp_len = len;
+	if (s->prec != -1 && s->prec < len)
 		len = s->prec;
 	if (s->minus == 0)
 		n_printed = put_empty_symbols(' ', s->width - len, s->fd);
-	ft_putnstr_fd(str, s->fd, s->prec);
+	if (s->prec != -1)
+		ft_putnstr_fd(str, s->fd, s->prec);
+	else
+		ft_putnstr_fd(str, s->fd, tmp_len);
 	if (s->minus == 1)
 		n_printed = put_empty_symbols(' ', s->width - len, s->fd);
 	return (n_printed + len);

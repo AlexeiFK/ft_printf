@@ -6,14 +6,14 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/01 19:49:27 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/01 22:18:56 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/04 16:17:43 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "libft.h"
 
-void	ft_putnstr_fd(char const *s, int fd, int n)
+void		ft_putnstr_fd(char const *s, int fd, int n)
 {
 	int		i;
 
@@ -89,7 +89,8 @@ char		*ft_itoa_base(long long int n, int base, int is_upper_case)
 	return (new);
 }
 
-char		*ft_itoa_base_u(unsigned long long int n, int base, int is_upper_case)
+char		*ft_itoa_base_u(unsigned long long int n,
+		int base, int is_upper_case)
 {
 	int							len;
 	char						*new;

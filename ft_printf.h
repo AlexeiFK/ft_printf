@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/01 14:20:31 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/02 22:53:50 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/04 16:24:52 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,16 @@ typedef struct			s_specs
 	int			base;
 }				t_specs;
 
-/*
- ** 	maybe return size_t instead of int
- **		0x in width
- **		add buffer ARGH!
-*/
 int		put_empty_symbols(unsigned char c, int n, int fd);
+void	append_spec_c(char **str, t_specs *s, int *n_digs);
+void	int_prec_set(char **str, int *n_digs, int prec);
 
 int		print_string(t_specs *s, char *str);
 int		print_char(t_specs *s, unsigned char c);
 int		print_int(t_specs *s, long long int c);
 int		print_uint(t_specs *s, unsigned long long int c);
+
+
 
 char	*ft_itoa_base(long long int n, int base, int is_upper_case);
 char	*ft_itoa_base_u(unsigned long long int n, int base, int is_upper_case);
