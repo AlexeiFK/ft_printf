@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 16:22:04 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/04 17:15:20 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/04 17:19:30 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void	append_spec_c(char **str, t_specs *s, int *n_digits)
 		*str = tmp;
 	}
 }
+
 char	choose_empty_symbol(t_specs *s)
 {
 	if (s->prec == -1)
