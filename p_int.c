@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/01 16:11:14 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/04 16:22:21 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/04 17:10:29 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,7 @@ int		print_int(t_specs *s, long long int c)
 	n_digits = ft_strlen(itoa_out);
 	if (s->prec != -1 && n_digits < s->prec)
 		int_prec_set(&itoa_out, &n_digits, s->prec);
-	if (s->zero == 1)
-		empty = '0';
-	else if (s->zero == 0)
-		empty = ' ';
+	empty = choose_empty_symbol(s);
 	if ((s->plus == 1) && (c >= 0))
 		n_digits++;
 	if ((s->space == 1) && (c >= 0) && (s->plus != 1))
@@ -58,10 +55,7 @@ int		print_uint(t_specs *s, unsigned long long int c)
 	if (s->prec != -1 && n_digits < s->prec)
 		int_prec_set(&itoa_out, &n_digits, s->prec);
 	append_spec_c(&itoa_out, s, &n_digits);
-	if (s->zero == 1)
-		empty = '0';
-	else if (s->zero == 0)
-		empty = ' ';
+	empty = choose_empty_symbol(s);
 	if (s->minus == 0)
 		n_printed = put_empty_symbols(empty, s->width - n_digits, s->fd);
 	ft_putstr_fd(itoa_out, s->fd);

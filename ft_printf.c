@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 17:55:26 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/04 16:46:10 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/04 17:12:09 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,11 +206,14 @@ int		main(int argc, char **argv)
 	printf("%d\n", printf("%#x", 255));
 	*/
 	t_specs		s;
+	char	c255 = 255;
+	unsigned char	u_c = 255;
 	char	c = 'g';
 	int im;
 	int ip;
 	int lli9 = 12379;
 	void	*p;
+	void	*p0 = NULL;
 	specs_init(&s);
 	s.prec = 5;
 	s.width = 10;
@@ -226,6 +229,11 @@ int		main(int argc, char **argv)
 	ip = printf("%p", p);
 	printf("\n-----%d-----------%d--------\n", im, ip);
 	specs_init(&s);
+	im = print_flag_p(&s, p0);
+	printf("\n");
+	ip = printf("%p", p0);
+	printf("\n-----%d-----------%d--------\n", im, ip);
+	specs_init(&s);
 	im = print_flag_x(&s, lli9);
 	printf("\n");
 	ip = printf("%x", lli9);
@@ -239,6 +247,17 @@ int		main(int argc, char **argv)
 	im = print_flag_x(&s, lli9);
 	printf("\n");
 	ip = printf("%#20.5x", lli9);
+	printf("\n-----%d-----------%d--------\n", im, ip);
+	specs_init(&s);
+	s.prec = 5;
+	s.width = 20;
+	s.plus = 0;
+	s.zero = 1;
+	s.minus = 0;
+	s.sharp = 1;
+	im = print_flag_x(&s, lli9);
+	printf("\n");
+	ip = printf("%0#20.5x", lli9);
 	printf("\n-----%d-----------%d--------\n", im, ip);
 	specs_init(&s);
 	s.prec = 20;
@@ -347,6 +366,28 @@ int		main(int argc, char **argv)
 	im = print_flag_s(&s, "hello world");
 	printf("\n");
 	ip = printf("%40.3s", "hello world");
+	printf("\n-----%d-----------%d--------\n", im, ip);
+	specs_init(&s);
+//	s.prec = 3;
+//	s.width = 40;
+//	s.space = 1;
+//	s.plus = 0;
+//	s.minus = 1;
+//	s.sharp = 0;
+	im = print_flag_x_big_hh(&s, u_c);
+	printf("\n");
+	ip = printf("%hhX", u_c);
+	printf("\n-----%d-----------%d--------\n", im, ip);
+	specs_init(&s);
+//	s.prec = 3;
+//	s.width = 40;
+//	s.space = 1;
+//	s.plus = 0;
+//	s.minus = 1;
+//	s.sharp = 0;
+	im = print_flag_x_big(&s, c255);
+	printf("\n");
+	ip = printf("%X", c255);
 	printf("\n-----%d-----------%d--------\n", im, ip);
 	return (0);
 }

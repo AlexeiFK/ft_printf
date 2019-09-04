@@ -6,13 +6,17 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/01 14:20:31 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/04 16:24:52 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/04 17:05:29 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
+/*
+ ** minus -- fd = parser's work
+ ** you dont have to change is_upper and base
+*/
 typedef struct			s_specs
 {
 	char		minus;
@@ -24,16 +28,30 @@ typedef struct			s_specs
 	int			prec;
 	int			fd;
 
-//	int			size;
-//	int			type;
-//
 	int			is_upper;
 	int			base;
 }				t_specs;
 
+/*
+ ** add to lib
+*/
+
+char	*ft_itoa_base(long long int n, int base, int is_upper_case);
+char	*ft_itoa_base_u(unsigned long long int n, int base, int is_upper_case);
+void	ft_putnstr_fd(char const *s, int fd, int n);
+
+/*
+ ** additional functions for basic output
+*/
+
+char	choose_empty_symbol(t_specs *s);
 int		put_empty_symbols(unsigned char c, int n, int fd);
 void	append_spec_c(char **str, t_specs *s, int *n_digs);
 void	int_prec_set(char **str, int *n_digs, int prec);
+
+/*
+**	basic output functions
+*/
 
 int		print_string(t_specs *s, char *str);
 int		print_char(t_specs *s, unsigned char c);
@@ -41,31 +59,10 @@ int		print_int(t_specs *s, long long int c);
 int		print_uint(t_specs *s, unsigned long long int c);
 
 
-
-char	*ft_itoa_base(long long int n, int base, int is_upper_case);
-char	*ft_itoa_base_u(unsigned long long int n, int base, int is_upper_case);
-
-
-void	ft_putnstr_fd(char const *s, int fd, int n);
-
-/*
- ** functions todo
-*/
-
-void	ft_putunbr_base();
-void	put_nbr_unsigned();
-int		number_of_digs_decs(int num);
-int		number_of_digs_decu(unsigned int num);
-int		number_of_digs_hexu(unsigned int num);
-int		number_of_digs_octu(unsigned int num);
-
 /*
  ** interface
 */
 
-/*
- ** 	maybe return size_t instead of int
-*/
 void	specs_init(t_specs *s);
 
 int		print_flag_c(t_specs *s, unsigned char c);

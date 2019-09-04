@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 16:22:04 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/04 16:22:08 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/04 17:15:20 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,9 @@ void	append_spec_c(char **str, t_specs *s, int *n_digits)
 			tmp = ft_strnew(*n_digits + 2);
 			tmp[0] = '0';
 			if (s->is_upper == 1)
-				tmp[1] = 'x';
-			else
 				tmp[1] = 'X';
+			else
+				tmp[1] = 'x';
 			*n_digits += 2;
 		}
 		else if (s->base == 8)
@@ -79,4 +79,15 @@ void	append_spec_c(char **str, t_specs *s, int *n_digits)
 		free(*str);
 		*str = tmp;
 	}
+}
+char	choose_empty_symbol(t_specs *s)
+{
+	if (s->prec == -1)
+	{
+		if (s->zero == 1)
+			return ('0');
+		else if (s->zero == 0)
+			return (' ');
+	}
+	return (' ');
 }
