@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 17:19:58 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/05 21:52:28 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/05 22:52:20 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,15 +225,15 @@ int				print_double(t_specs *s, double f)
 	big_num_zero(&res);
 //	big_num_add(&sbig1, &sbig2, &res);
 	big_num_div_two(&sbig1);
-	big_num_two_pow(-1022, &res);
+	big_num_two_pow(102, &res);
 //	big_num_sqr_p(&sbig1);
 //	big_num_print(&sbig1);
 	big_num_print(&res);
 //	big_num_init("123456789", 100);
 
-	ft_putstr("\n");
+//	ft_putstr("\n");
 //	ft_putstr(sbig);
-	ft_putstr("\n==========================================\n");
+//	ft_putstr("\n==========================================\n");
 	return (0);
 }
 

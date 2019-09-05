@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 18:16:07 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/05 21:59:18 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/05 22:50:56 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,11 +173,12 @@ void		big_num_print(t_bignum *b)
 			ft_putchar('\n');
 	ft_putnbr(b->size);
 			ft_putchar('\n');
-	while (i < b->size && i < 500)
+	ft_putnbr(b->num[i]);
+	ft_putchar('.');
+	i++;
+	while (i < b->size && i <= 500)
 	{
 		ft_putnbr(b->num[i]);
-//		if ((i % 50) == 0)
-//			ft_putchar('\n');
 		i++;
 	}
 }

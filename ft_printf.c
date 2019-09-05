@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 17:55:26 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/05 21:53:02 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/05 22:51:44 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -392,7 +392,8 @@ int		main(int argc, char **argv)
 	printf("\n-----%d-----------%d--------\n", im, ip);
 	specs_init(&s);
 //	double fl123 = DBL_MAX;
-	double fl123 = DBL_MIN;
+//	double fl123 = DBL_MIN;
+	double fl123 = 0x1p102;
 //	print_mem(&fl123, sizeof(fl123));
 	s.sharp = 1;
 	print_double(&s, fl123);

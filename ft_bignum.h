@@ -6,13 +6,13 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 18:22:28 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/05 21:56:08 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/05 22:52:52 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_BIGNUM_H
 # define FT_BIGNUM_H
-# define MAX_NDIGITS 5000
+# define MAX_NDIGITS 500
 typedef struct				s_bignum
 {
 	char					*num;
