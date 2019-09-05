@@ -6,12 +6,13 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 17:19:58 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/04 23:02:21 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/05 21:52:28 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "ft_printf.h"
+#include "ft_bignum.h"
 
 unsigned char reverse_bit(unsigned char mem)
 {
@@ -145,7 +146,7 @@ void			apply_exp(unsigned long long int mant,
 //	ft_putstr("\nmask\n");
 //	print_flag_u_ll(&s, mask);
 //	ft_putstr("\nmask\n");
-	print_flag_u_ll(&s, mant);
+//	print_flag_u_ll(&s, mant);
 }
 
 int				print_double(t_specs *s, double f)
@@ -159,50 +160,84 @@ int				print_double(t_specs *s, double f)
 	t_specs		s2;
 //	unsigned char	*mem;
 
-	ft_print_mem(&f, sizeof(f), 2);
+//	ft_print_mem(&f, sizeof(f), 2);
 	ft_putchar('\n');
-	ft_print_mem(&f, sizeof(f), 16);
+//	ft_print_mem(&f, sizeof(f), 16);
 	fl.sign = get_sign(&f, sizeof(f));
+	ft_putchar('\n');
+	ft_putstr("\n==========================================\n");
 	ft_putchar('\n');
 	ft_putnbr(fl.sign);
 	ft_putchar('\n');
 	fl.exp = get_exp(&f, sizeof(f));
 	specs_init(&s2);
 	s2.base = 2;
+	s2.width = 11;
+	s2.zero = 1;
 	print_flag_u_h(&s2, fl.exp);
 	fl.mant = get_mant(&f, sizeof(f));
 	ft_putchar('\n');
-	nnn = print_flag_u_ll(&s2, fl.mant);
-	ft_putstr("\n---------mant----------\n");
+//	nnn = print_flag_u_ll(&s2, fl.mant);
+//	ft_putstr("\n---------mant----------\n");
 	apply_exp(fl.mant, &fl.mant_int, &fl.mant_fra,fl.exp - 1023);
-	ft_putstr("\n-\n");
-	ft_putnbr(nnn);
-	ft_putstr("\n---------exp----------\n");
+	s2.width = 52;
+	print_flag_u_ll(&s2, fl.mant);
+//	ft_putstr("\n-\n");
+//	ft_putnbr(nnn);
+	ft_putstr("\n---------exp:");
+	s2.width = -1;
+	s2.zero = 0;
 	s2.base = 10;
 	print_flag_di_h(&s2, fl.exp - 1023);
-	ft_putstr("\n---------mant----------\n");
-	print_flag_u_ll(&s2, fl.mant);
-	ft_putstr("\n---------mant----------\n");
-	apply_exp(fl.mant, &fl.mant_int, &fl.mant_fra,fl.exp - 1023);
-	ft_putstr("\n---------final res----------\n");
+//	ft_putstr("\n---------mant----------\n");
+//	print_flag_u_ll(&s2, fl.mant);
+//	ft_putstr("\n---------mant----------\n");
+//	apply_exp(fl.mant, &fl.mant_int, &fl.mant_fra,fl.exp - 1023);
+//	ft_putstr("\n---------final res----------\n");
 	s2.base = 2;
-	ft_putstr("\n---------mantd----------\n");
-	print_flag_u_ll(&s2, fl.mant_int);
-	ft_putstr("\n---------mantf----------\n");
-	print_flag_u_ll(&s2, fl.mant_fra);
+//	ft_putstr("\n---------mantd----------\n");
+//	print_flag_u_ll(&s2, fl.mant_int);
+//	ft_putstr("\n---------mantf----------\n");
+//	print_flag_u_ll(&s2, fl.mant_fra);
 	s2.base = 10;
-	ft_putstr("\n---------mantd----------\n");
-	print_flag_u_ll(&s2, fl.mant_int);
-	ft_putstr("\n---------mantf----------\n");
-	print_flag_u_ll(&s2, fl.mant_fra);
+//	ft_putstr("\n---------mantd----------\n");
+//	print_flag_u_ll(&s2, fl.mant_int);
+//	ft_putstr("\n---------mantf----------\n");
+//	print_flag_u_ll(&s2, fl.mant_fra);
 //	fbit.f = f;
 //	str = ft_itoa_base_u(fbit.d, 2 , 1);
 //	ft_putstr(str);
 //	d = f_bit.d & 
 //	print_flag_x_ll(s, fbit.d << 12 >> 12);
 //	write(1, &f, 64);
+	ft_putchar('\n');
+	t_bignum sbig1, sbig2, res;
+	big_num_zero(&sbig1);
+	str_to_big("123456789", &sbig1);
+	big_num_print(&sbig1);
+	ft_putchar('\n');
+	big_num_zero(&sbig2);
+	str_to_big("123456789", &sbig2);
+	big_num_print(&sbig2);
+	ft_putchar('\n');
+	big_num_zero(&res);
+	str_to_big("248328427348", &res);
+	big_num_zero(&res);
+//	big_num_add(&sbig1, &sbig2, &res);
+	big_num_div_two(&sbig1);
+	big_num_two_pow(-1022, &res);
+//	big_num_sqr_p(&sbig1);
+//	big_num_print(&sbig1);
+	big_num_print(&res);
+//	big_num_init("123456789", 100);
+
+	ft_putstr("\n");
+//	ft_putstr(sbig);
+	ft_putstr("\n==========================================\n");
+	return (0);
 }
 
 int		print_long_double(t_specs *s, long double f)
 {
+	return (0);
 }

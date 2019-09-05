@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 17:55:26 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/04 23:07:40 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/05 21:53:02 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "ft_printf.h"
 #include <stdarg.h>
 #include <limits.h>
+#include <float.h>
 
 #include <stdio.h>
 
@@ -206,7 +207,7 @@ int		main(int argc, char **argv)
 	printf("%d\n", printf("%#x", 255));
 	*/
 	t_specs		s;
-	char	c255 = 255;
+	char	c255 = 127;
 	unsigned char	u_c = 255;
 	char	c = 'g';
 	int im;
@@ -265,10 +266,10 @@ int		main(int argc, char **argv)
 	s.plus = 0;
 	s.minus = 0;
 	s.sharp = 1;
-	im = print_flag_x_big_hh(&s, lli9);
-	printf("\n");
-	ip = printf("%#5.20hhX", lli9);
-	printf("\n-----%d-----------%d--------\n", im, ip);
+//	im = print_flag_x_big_hh(&s, lli9);
+//	printf("\n");
+	//ip = printf("%#5.20hhX", lli9);
+//	printf("\n-----%d-----------%d--------\n", im, ip);
 	specs_init(&s);
 	s.prec = 20;
 	s.width = 5;
@@ -296,10 +297,10 @@ int		main(int argc, char **argv)
 	s.plus = 0;
 	s.minus = 0;
 	s.sharp = 0;
-	im = print_flag_di_ll(&s, lli9);
-	printf("\n");
-	ip = printf("% 15.5lld", lli9);
-	printf("\n-----%d-----------%d--------\n", im, ip);
+//	im = print_flag_di_ll(&s, lli9);
+//	printf("\n");
+//	ip = printf("% 15.5lld", lli9);
+//	printf("\n-----%d-----------%d--------\n", im, ip);
 	specs_init(&s);
 //	s.prec = 5;
 	s.width = 10;
@@ -390,11 +391,12 @@ int		main(int argc, char **argv)
 	ip = printf("%X", c255);
 	printf("\n-----%d-----------%d--------\n", im, ip);
 	specs_init(&s);
-	double fl123 = 1230000000;
+//	double fl123 = DBL_MAX;
+	double fl123 = DBL_MIN;
 //	print_mem(&fl123, sizeof(fl123));
 	s.sharp = 1;
 	print_double(&s, fl123);
 	printf("\n");
-	printf("%f", fl123);
+	printf("%.500f\n", fl123);
 	return (0);
 }
