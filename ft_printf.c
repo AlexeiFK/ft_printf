@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 17:55:26 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/05 22:51:44 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/07 22:55:07 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,10 +219,10 @@ int		main(int argc, char **argv)
 	s.prec = 5;
 	s.width = 10;
 	s.plus = 0;
-//	s.minus = 1;
+	s.minus = 1;
 	im = print_flag_x(&s, lli9);
 	printf("\n");
-	ip = printf("%10.5x", lli9);
+	ip = printf("%-10.5x", lli9);
 	printf("\n-----%d-----------%d--------\n", im, ip);
 	specs_init(&s);
 	im = print_flag_p(&s, p);
@@ -393,9 +393,11 @@ int		main(int argc, char **argv)
 	specs_init(&s);
 //	double fl123 = DBL_MAX;
 //	double fl123 = DBL_MIN;
-	double fl123 = 0x1p102;
+	double fl123 = 0.1342446455678;
 //	print_mem(&fl123, sizeof(fl123));
 	s.sharp = 1;
+	s.width = 5;
+	s.prec = 500;
 	print_double(&s, fl123);
 	printf("\n");
 	printf("%.500f\n", fl123);

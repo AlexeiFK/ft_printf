@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 18:16:07 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/05 22:50:56 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/07 22:55:01 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,24 +38,27 @@ void		big_num_add(t_bignum *n1, t_bignum *n2, t_bignum *res)
 	}
 }
 
-void		big_num_sqr(t_bignum *b, t_bignum *res)
+void		big_num_add_p(t_bignum *n1, t_bignum *n2)
 {
-	int		i;
+	int		i1;
+	int		i2;
 	char	carry;
 
 	carry = 0;
-	i = b->size;
-	while (i >= 0)
+	i1 = n1->size;
+	i2 = n2->size;
+	while (i1 >= 0 && i2 >= 0)
 	{
-		res->num[i] = b->num[i] * 2;
-		res->num[i] += carry;
+		n1->num[i1] +=  n2->num[i2];
+		n1->num[i1] += carry;
 		carry = 0;
-		if (res->num[i] >= 10)
+		if (n1->num[i1] >= 10)
 		{
-			carry = res->num[i] / 10;
-			res->num[i] = res->num[i] % 10;
+			carry = n1->num[i1] / 10;
+			n1->num[i1] %= 10;
 		}
-		--i;
+		--i1;
+		--i2;
 	}
 }
 
@@ -100,60 +103,58 @@ void		big_num_div_two(t_bignum *b)
 	}
 }
 
-int			big_num_digs(t_bignum *b)
+/*
+ ** calc power in int b4 overflow opti
+*/
+
+static void pos_power(int power, t_bignum *res)
 {
 	int		i;
 
-	i = 0;
-	while (b->num[i] == 0)
-		i++;
-	return (i);
-//	return (b->size - i);
-}
-
-void		set_one_bit(int i, t_bignum	*b)
-{
-	b->num[0] = 1;
-}
-
-void		big_num_two_pow(int power, t_bignum *res)
-{
-	int		i;
-	int		is_plus;
-	t_bignum	tmp;
-
-	big_num_zero(&tmp);
 	i = 1;
-	if (power < 0)
+	if (power == 0)
 	{
-		is_plus = 0;
-		power = power * -1;
+		str_to_big("1", res);
+		return ;
 	}
-	else
-		is_plus = 1;
 	str_to_big("2", res);
+	res->dot = res->size;
 	while (i < power)
 	{
 		big_num_sqr_p(res);
 		i++;
 	}
-	if (is_plus == 0)
+}
+
+static void	neg_power(int power, t_bignum *res)
+{
+	int		i;
+
+	i = 0;
+	res->num[0] = 1;
+	while (i < power)
 	{
-		set_one_bit(big_num_digs(res) - 2, &tmp);
-		i = 0;
-		while (i < power)
-		{
-			big_num_div_two(&tmp);
-			i++;
-		}
-		ft_putchar('\n');
-		big_num_print(&tmp);
+		big_num_div_two(res);
+		i++;
 	}
 }
 
-void		big_num_two_powm(int power, t_bignum *b)
+void		big_num_two_pow(int power, t_bignum *res)
 {
+	if (power < 0)
+		neg_power(-power, res);
+	else
+		pos_power(power, res);
+}
 
+void		big_num_bzero(t_bignum *b)
+{
+	ft_memset(b->num, 0, b->size);
+}
+
+void		big_num_free(t_bignum *b)
+{
+	ft_memset(b->num, 0, b->size);
 }
 
 void		big_num_zero(t_bignum *b)
@@ -163,20 +164,14 @@ void		big_num_zero(t_bignum *b)
 	ft_memset(b->num, 0, b->size);
 }
 
-
-void		big_num_print(t_bignum *b)
+void		big_num_print(t_bignum *b, int prec)
 {
 	int		i;
 
 	i = 0;
-
-			ft_putchar('\n');
-	ft_putnbr(b->size);
-			ft_putchar('\n');
-	ft_putnbr(b->num[i]);
-	ft_putchar('.');
-	i++;
-	while (i < b->size && i <= 500)
+	while ((b->num[i] == 0) && (i != b->dot))
+		i++;
+	while (i < b->size && i <= prec)
 	{
 		ft_putnbr(b->num[i]);
 		i++;
@@ -197,9 +192,4 @@ void		str_to_big(char *str, t_bignum *b)
 		--i;
 		--j;
 	}
-}
-
-void		shift_by_exp(int exp, char *str)
-{
-
 }

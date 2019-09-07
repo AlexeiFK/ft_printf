@@ -6,12 +6,13 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 17:19:58 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/05 22:52:20 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/07 22:54:59 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "ft_printf.h"
+#include <stdlib.h>
 #include "ft_bignum.h"
 
 unsigned char reverse_bit(unsigned char mem)
@@ -151,6 +152,36 @@ void			apply_exp(unsigned long long int mant,
 
 int				print_double(t_specs *s, double f)
 {
+	t_bignum		be_dot;
+	t_bignum		af_dot;
+	int				exp;
+	char			*mant;
+	int				printed;
+
+	printed = 0;
+	big_num_zero(&be_dot);
+	big_num_zero(&af_dot);
+	if (f < 0)
+	{
+		ft_putchar_fd('-', s->fd);
+		printed++;
+	}
+	mant = ft_itoa_base_u_zero(get_mant(&f, sizeof(f)), 2, 1, 51);
+	af_dot.dot = 1;
+	exp = get_exp(&f, sizeof(f));
+	get_real_int(&af_dot, mant, exp, 1);
+	get_real_frac(&be_dot, mant, exp, 1);
+	big_num_print(&af_dot, s->prec);
+	ft_putchar_fd('.', s->fd);
+	big_num_print(&be_dot, s->prec);
+	big_num_free(&af_dot);
+	big_num_free(&be_dot);
+	free(mant);
+	return (printed);
+}
+
+int				print_double_test(t_specs *s, double f)
+{
 	long long int	num;
 	unsigned long long int d;
 	t_float			fbit;
@@ -211,30 +242,124 @@ int				print_double(t_specs *s, double f)
 //	print_flag_x_ll(s, fbit.d << 12 >> 12);
 //	write(1, &f, 64);
 	ft_putchar('\n');
-	t_bignum sbig1, sbig2, res;
-	big_num_zero(&sbig1);
-	str_to_big("123456789", &sbig1);
-	big_num_print(&sbig1);
-	ft_putchar('\n');
-	big_num_zero(&sbig2);
-	str_to_big("123456789", &sbig2);
-	big_num_print(&sbig2);
-	ft_putchar('\n');
+	t_bignum res;
+	char	*mantissa;
+
 	big_num_zero(&res);
-	str_to_big("248328427348", &res);
-	big_num_zero(&res);
+	mantissa = ft_itoa_base_u_zero(fl.mant, 2, 1, 51);
+//	str_to_big(mantissa, &res);
+	res.dot = res.size;
+	res.dot = 1;
+//	big_num_print(&res);
+	ft_putchar('\n');
 //	big_num_add(&sbig1, &sbig2, &res);
-	big_num_div_two(&sbig1);
-	big_num_two_pow(102, &res);
+//	big_num_div_two(&sbig1);
+	
+//	big_num_two_pow(fl.exp - 1023, &res);
+//	big_num_two_pow(-229, &res);
 //	big_num_sqr_p(&sbig1);
 //	big_num_print(&sbig1);
-	big_num_print(&res);
+	get_real_num(&res, mantissa, fl.exp, 1);
+	big_num_print(&res, 500);
 //	big_num_init("123456789", 100);
 
 //	ft_putstr("\n");
 //	ft_putstr(sbig);
 //	ft_putstr("\n==========================================\n");
 	return (0);
+}
+
+void	get_real_num(t_bignum *res, char *mant, int exp, int is_norm)
+{
+	int			i;
+	t_bignum	tmp;
+
+	big_num_zero(&tmp);
+	exp -= 1023;
+	i = 0;
+	if (is_norm == 1)
+	{
+		big_num_two_pow(exp, &tmp);
+		big_num_add_p(res, &tmp);
+		exp--;
+	}
+	while (mant[i] != '\0')
+	{
+		if (mant[i] == '1')
+		{
+			big_num_bzero(&tmp);
+			big_num_two_pow(exp, &tmp);
+			big_num_add_p(res, &tmp);
+		}
+		exp--;
+		i++;
+	}
+	big_num_free(&tmp);
+}
+
+void	get_real_int(t_bignum *res, char *mant, int exp, int is_norm)
+{
+	int			i;
+	t_bignum	tmp;
+
+	big_num_zero(&tmp);
+	exp -= 1023;
+	i = 0;
+	if (is_norm == 1 && exp >= 0)
+	{
+		big_num_two_pow(exp, &tmp);
+		big_num_add_p(res, &tmp);
+		exp--;
+	}
+	while (mant[i] != '\0' && exp >= 0)
+	{
+		if (mant[i] == '1')
+		{
+			big_num_bzero(&tmp);
+			big_num_two_pow(exp, &tmp);
+			big_num_add_p(res, &tmp);
+		}
+		exp--;
+		i++;
+	}
+	big_num_free(&tmp);
+	res->dot = res->size;
+}
+
+void	get_real_frac(t_bignum *res, char *mant, int exp, int is_norm)
+{
+	int			i;
+	t_bignum	tmp;
+
+	big_num_zero(&tmp);
+	exp -= 1023;
+	i = 0;
+	if (is_norm == 1 && exp < 0)
+	{
+		big_num_two_pow(exp, &tmp);
+		big_num_add_p(res, &tmp);
+		exp--;
+	}
+	else
+		exp--;
+	while (mant[i] != '\0' && exp >= 0)
+	{
+		exp--;
+		i++;
+	}
+	while (mant[i] != '\0')
+	{
+		if (mant[i] == '1')
+		{
+			big_num_bzero(&tmp);
+			big_num_two_pow(exp, &tmp);
+			big_num_add_p(res, &tmp);
+		}
+		exp--;
+		i++;
+	}
+	big_num_free(&tmp);
+	res->dot = 1;
 }
 
 int		print_long_double(t_specs *s, long double f)
