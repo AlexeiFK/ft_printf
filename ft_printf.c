@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 17:55:26 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/08 21:53:20 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/08 23:53:52 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,6 +207,7 @@ int		main(int argc, char **argv)
 	ft_putchar('\n');
 	printf("%d\n", printf("%#x", 255));
 	*/
+	/* START TEST
 	t_specs		s;
 	char	c255 = 127;
 	unsigned char	u_c = 255;
@@ -478,6 +479,30 @@ int		main(int argc, char **argv)
 	im = print_double(&s, fl123);
 	printf("\n");
 	ip = printf("%#100.20f", fl123);
+	printf("\n-----%d-----------%d--------\n", im, ip);
+	specs_init(&s);
+	fl123 = 123.432;
+	s.sharp = 1;
+	s.width = -1;
+	s.prec = 20;
+	im = print_double(&s, fl123);
+	printf("\n");
+	ip = printf("%-100.20f", fl123);
+	printf("\n-----%d-----------%d--------\n", im, ip);
+	END OF TEST */
+	t_specs s;
+	double fl123 = DBL_MAX;
+	int	ip, im;
+	specs_init(&s);
+	s.prec = 40;
+	s.width = 4;
+//	s.space = 1;
+//	s.plus = 0;
+//	s.minus = 1;
+//	s.sharp = 0;
+	im = print_flag_s(&s, "hello world");
+	printf("\n");
+	ip = printf("%4.40s", "hello world");
 	printf("\n-----%d-----------%d--------\n", im, ip);
 	specs_init(&s);
 	fl123 = 123.432;

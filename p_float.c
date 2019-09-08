@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 17:19:58 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/08 23:25:14 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/08 23:53:56 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char	*ft_dtoa_special(t_floatd *fn)
 		if (fn->manti == 0)
 		{
 			if (fn->sign == 1)
-				return (ft_strdup("-inf"));
+				return (ft_strdup("inf"));
 			else
 				return (ft_strdup("inf"));
 		}
@@ -90,70 +90,41 @@ char	*ft_dtoa(double f, int prec)
 	char					*mant;
 	char					*str1;
 	char					*str2;
-	char					*str3;
 
-	big_num_zero(&be_dot);
-	big_num_zero(&af_dot);
 	get_sign_mant_exp(&fn, f);
 	if ((str1 = ft_dtoa_special(&fn)) != NULL)
 		return (str1);
-//	printed += print_float_sign(fn.sign, s);
+	big_num_zero(&be_dot);
+	big_num_zero(&af_dot);
 	mant = ft_itoa_base_u_zero(fn.manti, 2, 1, 51);
 	get_real_int(&af_dot, mant, fn.exp, fn.is_norm);
 	get_real_frac(&be_dot, mant, fn.exp, fn.is_norm);
-//	printed += big_num_print(&af_dot, af_dot.size);
-//	printed += print_float_dot(s);
-//	printed += big_num_print(&be_dot, s->prec);
+	free(mant);
 	af_dot.dot = af_dot.size;
 	if (prec > 0)
 		str1 = big_to_str(&af_dot, af_dot.size, 1);
 	else
 		str1 = big_to_str(&af_dot, af_dot.size, 0);
 	str2 = big_to_str(&be_dot, prec, 0);
-	str3 = ft_strjoin(str1, str2);
-//	printf("\nstr1:%s\nstr2:%s\nstrjoin:%s\n", str1, str2, str3);
+	mant = ft_strjoin(str1, str2);
+	free(str1);
+	free(str2);
 	big_num_free(&af_dot);
 	big_num_free(&be_dot);
-	free(mant);
-	return (str3);
+	return (mant);
 }
 
 int		print_double(t_specs *s, double f)
 {
-	t_bignum				be_dot;
-	t_bignum				af_dot;
-	t_floatd				fn;
-	char					*mant;
-	char					*str1;
-	char					*str2;
-	char					*str3;
 	int						printed;
+	char					*dtoa_out;
 
-	big_num_zero(&be_dot);
-	big_num_zero(&af_dot);
-	str3 = ft_dtoa(f, s->prec);
-	printf("\nstrdtoa:%s\n", str3);
-	get_sign_mant_exp(&fn, f);
-	if ((printed = print_double_special(&fn, s)) != 0)
-		return (printed);
-	printed += print_float_sign(fn.sign, s);
-	mant = ft_itoa_base_u_zero(fn.manti, 2, 1, 51);
-	get_real_int(&af_dot, mant, fn.exp, fn.is_norm);
-	get_real_frac(&be_dot, mant, fn.exp, fn.is_norm);
-	printed += big_num_print(&af_dot, af_dot.size);
-	printed += print_float_dot(s);
-	printed += big_num_print(&be_dot, s->prec);
-	af_dot.dot = af_dot.size;
-	if (s->prec > 0)
-		str1 = big_to_str(&af_dot, af_dot.size, 1);
-	else
-		str1 = big_to_str(&af_dot, af_dot.size, 0);
-//	str2 = big_to_str(&be_dot, s->prec, 0);
-//	str3 = ft_strjoin(str1, str2);
-//	printf("\nstr1:%s\nstr2:%s\nstrjoin:%s\n", str1, str2, str3);
-	big_num_free(&af_dot);
-	big_num_free(&be_dot);
-	free(mant);
+	printed = 0;
+	printed += print_float_sign(get_sign(&f, sizeof(f)), s);
+	dtoa_out = ft_dtoa(f, s->prec);
+	printed += ft_strlen(dtoa_out);
+	ft_putstr_fd(dtoa_out, s->fd);
+	free(dtoa_out);
 	return (printed);
 }
 

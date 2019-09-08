@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 18:16:07 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/08 23:06:36 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/08 23:53:58 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void		big_num_free(t_bignum *b)
 void		big_num_zero(t_bignum *b)
 {
 	b->size = MAX_NDIGITS;
-	b->num = ft_strnew(b->size);
+	b->num = ft_strnew(b->size + 1);
 	ft_memset(b->num, 0, b->size);
 }
 
@@ -93,6 +93,5 @@ char		*big_to_str(t_bignum *b, int prec, int dot)
 		new[len - 1] = '.';
 		new[len] = '\0';
 	}
-//	new = ft_strdup(b->num + start);
 	return (new);
 }
