@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/01 14:20:31 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/08 18:15:28 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/08 19:36:27 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,16 @@ void	ft_putnstr_fd(char const *s, int fd, int n);
  ** additional functions for basic output
 */
 
-char	choose_empty_symbol(t_specs *s);
-int		put_empty_symbols(unsigned char c, int n, int fd);
-void	append_spec_c(char **str, t_specs *s, int *n_digs);
-void	int_prec_set(char **str, int *n_digs, int prec);
-void	print_mem(void *mem, int size);
-char	*ft_itoa_base_u_zero(unsigned long long int n,
-		int base, int is_upper_case, int zeros);
+char					choose_empty_symbol(t_specs *s);
+int						put_empty_symbols(unsigned char c, int n, int fd);
+void					append_spec_c(char **str, t_specs *s, int *n_digs);
+void					int_prec_set(char **str, int *n_digs, int prec);
+void					print_mem(void *mem, int size);
+char					*ft_itoa_base_u_zero(unsigned long long int n,
+						int base, int is_upper_case, int zeros);
+unsigned char			get_sign(void *mem, int size);
+signed short int		get_exp(void *mem, int size);
+unsigned long long int	get_mant(void *mem, int size);
 
 
 /*
@@ -80,7 +83,6 @@ int		print_double(t_specs *s, double num);
 int		print_long_double(t_specs *s, long double num);
 
 
-int		print_double_test(t_specs *s, double num);
 /*
  ** interface
 */
