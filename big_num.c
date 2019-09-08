@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 18:16:07 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/08 19:39:06 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/08 23:06:36 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,22 @@ void		big_num_zero(t_bignum *b)
 	ft_memset(b->num, 0, b->size);
 }
 
-void		big_num_print(t_bignum *b, int prec)
+int			big_num_print(t_bignum *b, int prec)
 {
 	int		i;
+	int		p;
 
 	i = 0;
+	p = 0;
 	while ((b->num[i] == 0) && (i != b->dot))
 		i++;
-	while (i < b->size && i <= prec)
+	while (i <= b->size && i <= prec)
 	{
 		ft_putnbr(b->num[i]);
 		i++;
+		p++;
 	}
+	return (p);
 }
 
 void		str_to_big(char *str, t_bignum *b)
@@ -54,7 +58,7 @@ void		str_to_big(char *str, t_bignum *b)
 	int		i;
 	int		j;
 
-	i = b->size - 1;
+	i = b->size;
 	j = ft_strlen(str) - 1;
 	while (i >= 0 && j >= 0)
 	{
@@ -62,4 +66,33 @@ void		str_to_big(char *str, t_bignum *b)
 		--i;
 		--j;
 	}
+}
+
+char		*big_to_str(t_bignum *b, int prec, int dot)
+{
+	int		i;
+	int		start;
+	char	*new;
+	int		len;
+
+	i = 0;
+	while ((b->num[i] == 0) && (i != b->dot))
+		i++;
+	start = i;
+	while (i <= b->size && i <= prec)
+	{
+		b->num[i] += '0';
+		i++;
+	}
+	b->num[i] = '\0';
+	len = ft_strlen(b->num + start) + 1;
+	new = ft_strnew(len);
+	ft_strcpy(new, b->num + start);
+	if (dot == 1)
+	{
+		new[len - 1] = '.';
+		new[len] = '\0';
+	}
+//	new = ft_strdup(b->num + start);
+	return (new);
 }

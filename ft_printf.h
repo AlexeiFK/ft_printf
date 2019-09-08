@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/01 14:20:31 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/08 19:36:27 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/08 21:44:49 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,12 @@ typedef struct			s_specs
 	int			base;
 }				t_specs;
 
-typedef union			u_float
-{
-	double 				f;
-	unsigned long long	d;
-}						t_float;
-
 typedef struct				s_floatd
 {
 	unsigned char			sign;
-	unsigned long long int	mant;
-	unsigned long long int	mant_int;
-	unsigned long long int	mant_fra;
+	unsigned long long int	manti;
 	signed short int		exp;
+	int						is_norm;
 }							t_floatd;
 
 /*
