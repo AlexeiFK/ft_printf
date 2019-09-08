@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 18:16:07 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/08 19:29:59 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/08 19:39:06 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 /*
  ** calc power in int b4 overflow opti
 */
+
 void		big_num_bzero(t_bignum *b)
 {
 	ft_memset(b->num, 0, b->size);

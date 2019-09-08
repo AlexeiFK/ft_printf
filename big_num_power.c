@@ -6,13 +6,13 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/08 19:29:18 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/08 19:29:34 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/08 19:39:55 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_bignum.h"
 
-static void pos_power(int power, t_bignum *res)
+static void	pos_power(int power, t_bignum *res)
 {
 	int		i;
 

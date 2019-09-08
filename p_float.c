@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 17:19:58 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/08 19:33:22 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/08 19:42:12 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <stdlib.h>
 #include "ft_bignum.h"
 
-int				print_double(t_specs *s, double f)
+int		print_double(t_specs *s, double f)
 {
 	t_bignum				be_dot;
 	t_bignum				af_dot;
@@ -123,9 +123,4 @@ void	get_real_frac(t_bignum *res, char *mant, int exp, int is_norm)
 	}
 	big_num_free(&tmp);
 	res->dot = 1;
-}
-
-int		print_long_double(t_specs *s, long double f)
-{
-	return (0);
 }

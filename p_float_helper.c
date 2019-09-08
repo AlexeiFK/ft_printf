@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 20:52:16 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/08 19:32:58 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/08 19:41:34 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "libft.h"
 #include "ft_printf.h"
 
-char		*ft_itoa_base_u_zero(unsigned long long int n,
+char					*ft_itoa_base_u_zero(unsigned long long int n,
 		int base, int is_upper_case, int zeros)
 {
 	int							len;
@@ -36,7 +36,7 @@ char		*ft_itoa_base_u_zero(unsigned long long int n,
 	return (new);
 }
 
-unsigned char	get_sign(void *mem, int size)
+unsigned char			get_sign(void *mem, int size)
 {
 	unsigned char	*str;
 	unsigned char	bit;
@@ -87,4 +87,3 @@ unsigned long long int	get_mant(void *mem, int size)
 		| (tmp[3] << 24) | (tmp[2] << 32) | (tmp[1] << 40) | (tmp[0] << 48);
 	return (mant);
 }
-

@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/08 19:28:39 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/08 19:29:04 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/08 19:40:23 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void		big_num_add_p(t_bignum *n1, t_bignum *n2)
 	i2 = n2->size;
 	while (i1 >= 0 && i2 >= 0)
 	{
-		n1->num[i1] +=  n2->num[i2];
+		n1->num[i1] += n2->num[i2];
 		n1->num[i1] += carry;
 		carry = 0;
 		if (n1->num[i1] >= 10)
