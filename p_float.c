@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 17:19:58 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/07 22:54:59 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/08 19:24:09 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,19 +103,12 @@ unsigned long long int	get_mant(void *mem, int size)
 	specs_init(&s);
 	s.base = 2;
 	size -= 2;
-//	ft_putchar('\n');
 	while (size >= 0)
 	{
-//		print_flag_u_hh(&s, (str[size]));
 		if (i == 0)
 			tmp[i] = str[size] & 15;
 		else
 			tmp[i] = str[size];
-	//	ft_putstr("i=");
-	//	ft_putnbr(i);
-	//	ft_putstr("|");
-//		print_flag_u_ll(&s, tmp[i]);
-//		ft_putchar('o');
 		size--;
 		i++;
 	}
@@ -124,53 +117,49 @@ unsigned long long int	get_mant(void *mem, int size)
 	return (mant);
 }
 
-void			apply_exp(unsigned long long int mant,
-				unsigned long long int *m_int,
-				unsigned long long int *m_fra,
-				signed short int exp)
-{
-	t_specs					s;
-	unsigned long long int one;
-	unsigned long long int mask;
-
-	mask = 0x000fffffffffffff;
-//	mask = 0xfff0000000000000;
-//	mask = ~mask;
-	one = 1;
-	specs_init(&s);
-	s.base = 2;
-	mant = mant | (one << 52);
-	*m_int = mant >> (52 - exp);
-	*m_fra = mant << (1 + exp);
-	*m_fra = *m_fra & mask;
-// 	*m_fra = *m_fra >> (1 + exp);
-//	ft_putstr("\nmask\n");
-//	print_flag_u_ll(&s, mask);
-//	ft_putstr("\nmask\n");
-//	print_flag_u_ll(&s, mant);
-}
-
 int				print_double(t_specs *s, double f)
 {
-	t_bignum		be_dot;
-	t_bignum		af_dot;
-	int				exp;
-	char			*mant;
-	int				printed;
+	t_bignum				be_dot;
+	t_bignum				af_dot;
+	int						exp;
+	unsigned long long int	manti;
+	char					sign;
+	int						is_norm;
+	char					*mant;
+	int						printed;
 
 	printed = 0;
+	is_norm = 1;
 	big_num_zero(&be_dot);
 	big_num_zero(&af_dot);
-	if (f < 0)
+	sign = get_sign(&f, sizeof(f));
+	manti = get_mant(&f, sizeof(f));
+	exp = get_exp(&f, sizeof(f));
+	if ((exp == 0x7ff) && (manti == 0))
+	{
+		if (sign == 1)
+		{
+			return (print_flag_s(s, "-inf"));
+		}
+		else if (sign == 0)
+		{
+			return (print_flag_s(s, "inf"));
+		}
+	}
+	if (sign == 1)
 	{
 		ft_putchar_fd('-', s->fd);
 		printed++;
 	}
-	mant = ft_itoa_base_u_zero(get_mant(&f, sizeof(f)), 2, 1, 51);
+	mant = ft_itoa_base_u_zero(manti, 2, 1, 51);
 	af_dot.dot = 1;
-	exp = get_exp(&f, sizeof(f));
-	get_real_int(&af_dot, mant, exp, 1);
-	get_real_frac(&be_dot, mant, exp, 1);
+	if (exp == 0)
+	{
+		ft_putstr("sub\n");
+		is_norm = 0;
+	}
+	get_real_int(&af_dot, mant, exp, is_norm);
+	get_real_frac(&be_dot, mant, exp, is_norm);
 	big_num_print(&af_dot, s->prec);
 	ft_putchar_fd('.', s->fd);
 	big_num_print(&be_dot, s->prec);
@@ -178,123 +167,6 @@ int				print_double(t_specs *s, double f)
 	big_num_free(&be_dot);
 	free(mant);
 	return (printed);
-}
-
-int				print_double_test(t_specs *s, double f)
-{
-	long long int	num;
-	unsigned long long int d;
-	t_float			fbit;
-	char	*str;
-	t_floatd		fl;
-	int				nnn;
-	t_specs		s2;
-//	unsigned char	*mem;
-
-//	ft_print_mem(&f, sizeof(f), 2);
-	ft_putchar('\n');
-//	ft_print_mem(&f, sizeof(f), 16);
-	fl.sign = get_sign(&f, sizeof(f));
-	ft_putchar('\n');
-	ft_putstr("\n==========================================\n");
-	ft_putchar('\n');
-	ft_putnbr(fl.sign);
-	ft_putchar('\n');
-	fl.exp = get_exp(&f, sizeof(f));
-	specs_init(&s2);
-	s2.base = 2;
-	s2.width = 11;
-	s2.zero = 1;
-	print_flag_u_h(&s2, fl.exp);
-	fl.mant = get_mant(&f, sizeof(f));
-	ft_putchar('\n');
-//	nnn = print_flag_u_ll(&s2, fl.mant);
-//	ft_putstr("\n---------mant----------\n");
-	apply_exp(fl.mant, &fl.mant_int, &fl.mant_fra,fl.exp - 1023);
-	s2.width = 52;
-	print_flag_u_ll(&s2, fl.mant);
-//	ft_putstr("\n-\n");
-//	ft_putnbr(nnn);
-	ft_putstr("\n---------exp:");
-	s2.width = -1;
-	s2.zero = 0;
-	s2.base = 10;
-	print_flag_di_h(&s2, fl.exp - 1023);
-//	ft_putstr("\n---------mant----------\n");
-//	print_flag_u_ll(&s2, fl.mant);
-//	ft_putstr("\n---------mant----------\n");
-//	apply_exp(fl.mant, &fl.mant_int, &fl.mant_fra,fl.exp - 1023);
-//	ft_putstr("\n---------final res----------\n");
-	s2.base = 2;
-//	ft_putstr("\n---------mantd----------\n");
-//	print_flag_u_ll(&s2, fl.mant_int);
-//	ft_putstr("\n---------mantf----------\n");
-//	print_flag_u_ll(&s2, fl.mant_fra);
-	s2.base = 10;
-//	ft_putstr("\n---------mantd----------\n");
-//	print_flag_u_ll(&s2, fl.mant_int);
-//	ft_putstr("\n---------mantf----------\n");
-//	print_flag_u_ll(&s2, fl.mant_fra);
-//	fbit.f = f;
-//	str = ft_itoa_base_u(fbit.d, 2 , 1);
-//	ft_putstr(str);
-//	d = f_bit.d & 
-//	print_flag_x_ll(s, fbit.d << 12 >> 12);
-//	write(1, &f, 64);
-	ft_putchar('\n');
-	t_bignum res;
-	char	*mantissa;
-
-	big_num_zero(&res);
-	mantissa = ft_itoa_base_u_zero(fl.mant, 2, 1, 51);
-//	str_to_big(mantissa, &res);
-	res.dot = res.size;
-	res.dot = 1;
-//	big_num_print(&res);
-	ft_putchar('\n');
-//	big_num_add(&sbig1, &sbig2, &res);
-//	big_num_div_two(&sbig1);
-	
-//	big_num_two_pow(fl.exp - 1023, &res);
-//	big_num_two_pow(-229, &res);
-//	big_num_sqr_p(&sbig1);
-//	big_num_print(&sbig1);
-	get_real_num(&res, mantissa, fl.exp, 1);
-	big_num_print(&res, 500);
-//	big_num_init("123456789", 100);
-
-//	ft_putstr("\n");
-//	ft_putstr(sbig);
-//	ft_putstr("\n==========================================\n");
-	return (0);
-}
-
-void	get_real_num(t_bignum *res, char *mant, int exp, int is_norm)
-{
-	int			i;
-	t_bignum	tmp;
-
-	big_num_zero(&tmp);
-	exp -= 1023;
-	i = 0;
-	if (is_norm == 1)
-	{
-		big_num_two_pow(exp, &tmp);
-		big_num_add_p(res, &tmp);
-		exp--;
-	}
-	while (mant[i] != '\0')
-	{
-		if (mant[i] == '1')
-		{
-			big_num_bzero(&tmp);
-			big_num_two_pow(exp, &tmp);
-			big_num_add_p(res, &tmp);
-		}
-		exp--;
-		i++;
-	}
-	big_num_free(&tmp);
 }
 
 void	get_real_int(t_bignum *res, char *mant, int exp, int is_norm)
@@ -338,18 +210,11 @@ void	get_real_frac(t_bignum *res, char *mant, int exp, int is_norm)
 	{
 		big_num_two_pow(exp, &tmp);
 		big_num_add_p(res, &tmp);
-		exp--;
 	}
-	else
-		exp--;
-	while (mant[i] != '\0' && exp >= 0)
-	{
-		exp--;
-		i++;
-	}
+	exp -= is_norm;
 	while (mant[i] != '\0')
 	{
-		if (mant[i] == '1')
+		if (mant[i] == '1' && exp < 0)
 		{
 			big_num_bzero(&tmp);
 			big_num_two_pow(exp, &tmp);

@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 17:55:26 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/07 22:55:07 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/08 19:25:14 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <limits.h>
 #include <float.h>
 
+#include <math.h>
 #include <stdio.h>
 
 void	ft_putnstr(const char *str, int n)
@@ -391,15 +392,19 @@ int		main(int argc, char **argv)
 	ip = printf("%X", c255);
 	printf("\n-----%d-----------%d--------\n", im, ip);
 	specs_init(&s);
-//	double fl123 = DBL_MAX;
+	double fl123 = DBL_MAX;
 //	double fl123 = DBL_MIN;
-	double fl123 = 0.1342446455678;
+//	double fl123 = 0.41231342446455678;	
+//	double fl123 = -INFINITY;
+//	double fl123 = -1.0 / INFINITY;
+//	double fl123 = 0.0 / 0.0;
+//	double fl123 = 0x2p-1040;
 //	print_mem(&fl123, sizeof(fl123));
 	s.sharp = 1;
-	s.width = 5;
+	s.width = 100;
 	s.prec = 500;
 	print_double(&s, fl123);
 	printf("\n");
-	printf("%.500f\n", fl123);
+	printf("%1500.500f\n", fl123);
 	return (0);
 }
