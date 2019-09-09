@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 18:22:28 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/08 23:04:13 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/09 23:34:39 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,13 @@ void	big_num_sqr_p(t_bignum *b1);
 void	big_num_two_pow(int power, t_bignum *res);
 void	big_num_div_two(t_bignum *b);
 void	big_num_zero(t_bignum *b);
+void	big_num_round(t_bignum *b, int prec, t_bignum *more);
 void	big_num_free(t_bignum *b);
 void	big_num_bzero(t_bignum *b);
 void	str_to_big(char *str, t_bignum *b);
 int		big_num_print(t_bignum *b, int prec);
 char	*big_to_str(t_bignum *b, int prec, int dot);
+void	str_round(int after, int prec, char *str);
+int		is_smth_after(t_bignum *b, int prec);
 
 #endif

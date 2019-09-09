@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 17:55:26 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/08 23:53:52 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/09 23:38:19 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -508,10 +508,64 @@ int		main(int argc, char **argv)
 	fl123 = 123.432;
 	s.sharp = 1;
 	s.width = -1;
-	s.prec = 20;
+	s.prec = 3;
 	im = print_double(&s, fl123);
 	printf("\n");
-	ip = printf("%-100.20f", fl123);
+	ip = printf("%-100.3f", fl123);
+	printf("\n-----%d-----------%d--------\n", im, ip);
+	specs_init(&s);
+	fl123 = 123432.9;
+	s.sharp = 1;
+	s.width = -1;
+	s.prec = 0;
+	im = print_double(&s, fl123);
+	printf("\n");
+	ip = printf("%-100.0f", fl123);
+	printf("\n-----%d-----------%d--------\n", im, ip);
+	specs_init(&s);
+	fl123 = 2.5000000000000001;
+	s.sharp = 1;
+	s.width = -1;
+	s.prec = 0;
+	im = print_double(&s, fl123);
+	printf("\n");
+	ip = printf("%-100.0f", fl123);
+	printf("\n-----%d-----------%d--------\n", im, ip);
+	specs_init(&s);
+	fl123 = 2.5000000000000001;
+	s.sharp = 1;
+	s.width = -1;
+	s.prec = 15;
+	im = print_double(&s, fl123);
+	printf("\n");
+	ip = printf("%-100.15f", fl123);
+	printf("\n-----%d-----------%d--------\n", im, ip);
+	specs_init(&s);
+	fl123 = 2.500000000000001;
+	s.sharp = 1;
+	s.width = -1;
+	s.prec = 15;
+	im = print_double(&s, fl123);
+	printf("\n");
+	ip = printf("%-100.15f", fl123);
+	printf("\n-----%d-----------%d--------\n", im, ip);
+	specs_init(&s);
+	fl123 = 99999.999999;
+	s.sharp = 1;
+	s.width = -1;
+	s.prec = 5;
+	im = print_double(&s, fl123);
+	printf("\n");
+	ip = printf("%-100.5f", fl123);
+	printf("\n-----%d-----------%d--------\n", im, ip);
+	specs_init(&s);
+	fl123 = 9.9;
+	s.sharp = 1;
+	s.width = -1;
+	s.prec = 0;
+	im = print_double(&s, fl123);
+	printf("\n");
+	ip = printf("%-100.f", fl123);
 	printf("\n-----%d-----------%d--------\n", im, ip);
 	return (0);
 }
