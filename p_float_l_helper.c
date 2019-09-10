@@ -1,50 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_float_helper.c                                   :+:      :+:    :+:   */
+/*   p_float_l_helper.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/07 20:52:16 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/10 21:07:07 by rjeor-mo         ###   ########.fr       */
+/*   Created: 2019/09/10 19:24:30 by rjeor-mo          #+#    #+#             */
+/*   Updated: 2019/09/10 19:25:15 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include <stdlib.h>
-#include "libft.h"
-#include "ft_printf.h"
-
-char					*ft_itoa_base_u_zero(unsigned long long int n,
-		int base, int is_upper_case, int zeros)
-{
-	int							len;
-	char						*new;
-
-	len = zeros;
-	if (!(new = ft_strnew(len + 1)))
-		return (NULL);
-	while (len >= 0)
-	{
-		new[len] = '0' + (n % base);
-		if (new[len] > '9' && is_upper_case == 0)
-			new[len] += 39;
-		else if (new[len] > '9' && is_upper_case == 1)
-			new[len] += 7;
-		n = n / base;
-		len--;
-	}
-	return (new);
-}
-
-unsigned char			get_sign(void *mem, int size)
-{
-	unsigned char	*str;
-	unsigned char	bit;
-
-	str = (unsigned char*)mem;
-	bit = str[size - 1] >> 7;
-	return (bit);
-}
 
 signed short int		get_exp(void *mem, int size)
 {
@@ -86,19 +50,3 @@ unsigned long long int	get_mant(void *mem, int size)
 	mant = (tmp[6]) | (tmp[5] << 8) | (tmp[4] << 16)
 		| (tmp[3] << 24) | (tmp[2] << 32) | (tmp[1] << 40) | (tmp[0] << 48);
 	return (mant);
-}
-
-char	choose_empty_symbolf(t_specs *s, char *dtoa)
-{
-	if ((dtoa[0] == 'i') || (dtoa[0] == 'n'))
-		return (' ');
-	if (s->zero == 1)
-		return ('0');
-	else if (s->zero == 0)
-		return (' ');
-	return (' ');
-}
-
-int		append_zeros()
-{
-}

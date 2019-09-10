@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 17:19:58 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/09 23:39:49 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/10 21:07:05 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,29 +26,21 @@ void	get_sign_mant_exp(t_floatd *fn, double f)
 		fn->is_norm = 1;
 }
 
-int		print_double_special(t_floatd *fn, t_specs *s)
-{
-	if (fn->exp == 0x7ff)
-	{
-		s->prec = -1;
-		if (fn->manti == 0)
-		{
-			if (fn->sign == 1)
-				return (print_flag_s(s, "-inf"));
-			else
-				return (print_flag_s(s, "inf"));
-		}
-		else
-			return (print_flag_s(s, "nan"));
-	}
-	return (0);
-}
-
 int		print_float_sign(int sign, t_specs *s)
 {
 	if (sign == 1)
 	{
 		ft_putchar_fd('-', s->fd);
+		return (1);
+	}
+	if (s->plus == 1)
+	{
+		ft_putchar_fd('+', s->fd);
+		return (1);
+	}
+	if (s->space == 1)
+	{
+		ft_putchar_fd(' ', s->fd);
 		return (1);
 	}
 	return (0);
@@ -64,6 +56,16 @@ int		print_float_dot(t_specs	*s)
 /*
  ** add to lib
 */ 
+
+char	*ft_free_strjoin(char *str1, char *str2)
+{
+	char	*new;
+
+	new = ft_strjoin(str1, str2);
+	free(str1);
+	free(str2);
+	return (new);
+}
 
 char	*ft_dtoa_special(t_floatd *fn)
 {
@@ -82,6 +84,16 @@ char	*ft_dtoa_special(t_floatd *fn)
 	return (NULL);
 }
 
+void	ft_rounding(t_bignum *in, t_bignum *fr, int prec)
+{
+	if (prec > MAX_NDIGITS)
+		prec = MAX_NDIGITS;
+	if (prec > 0)
+		big_num_round(fr, prec, in);
+	else
+		big_num_round_int(in, fr);
+}
+
 char	*ft_dtoa(double f, int prec)
 {
 	t_bignum				int_frac[2];
@@ -98,21 +110,10 @@ char	*ft_dtoa(double f, int prec)
 	get_real_frac(&int_frac[1], str[0], fn.exp, fn.is_norm);
 	free(str[0]);
 	int_frac[0].dot = int_frac[0].size;
-	if (prec > 0)
-	{
-		big_num_round(&int_frac[1], prec, &int_frac[0]);
-		str[1] = big_to_str(&int_frac[0], int_frac[0].size, 1);
-	}
-	else
-	{
-		big_num_round_int(&int_frac[0]);
-		str[1] = big_to_str(&int_frac[0], int_frac[0].size, 0);
-	}
+	ft_rounding(&int_frac[0], &int_frac[1], prec);
+	str[1] = big_to_str_dot(&int_frac[0], prec);
 	str[2] = big_to_str(&int_frac[1], prec, 0);
-	str[0] = ft_strjoin(str[1], str[2]);
-//	str_round(is_smth_after(&int_frac[1], prec), prec, str[0]);
-	free(str[1]);
-	free(str[2]);
+	str[0] = ft_free_strjoin(str[1], str[2]);
 	big_num_free(&int_frac[0]);
 	big_num_free(&int_frac[1]);
 	return (str[0]);
@@ -121,15 +122,23 @@ char	*ft_dtoa(double f, int prec)
 int		print_double(t_specs *s, double f)
 {
 	int						printed;
+	int						n_digits;
+	char					empty;
 	char					*dtoa_out;
 
 	printed = 0;
-	printed += print_float_sign(get_sign(&f, sizeof(f)), s);
 	dtoa_out = ft_dtoa(f, s->prec);
-	printed += ft_strlen(dtoa_out);
+	n_digits = ft_strlen(dtoa_out);
+	empty = choose_empty_symbolf(s, dtoa_out);
+	n_digits += print_float_sign(get_sign(&f, sizeof(f)), s);
+	if (s->minus == 0)
+		printed += put_empty_symbols(empty, s->width - n_digits, s->fd);
 	ft_putstr_fd(dtoa_out, s->fd);
+	printed += put_empty_symbols('0', s->prec - MAX_NDIGITS, s->fd);
+	if (s->minus == 1)
+		printed += put_empty_symbols(empty, s->width - n_digits, s->fd);
 	free(dtoa_out);
-	return (printed);
+	return (printed + n_digits);
 }
 
 void	get_real_int(t_bignum *res, char *mant, int exp, int is_norm)

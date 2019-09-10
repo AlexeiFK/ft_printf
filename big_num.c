@@ -6,17 +6,13 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 18:16:07 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/09 21:07:55 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/10 19:49:14 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdlib.h>
 #include "ft_bignum.h"
-
-/*
- ** calc power in int b4 overflow opti
-*/
 
 void		big_num_bzero(t_bignum *b)
 {
@@ -66,6 +62,14 @@ void		str_to_big(char *str, t_bignum *b)
 		--i;
 		--j;
 	}
+}
+
+char		*big_to_str_dot(t_bignum *b, int prec)
+{
+	if (prec > 0)
+		return (big_to_str(b, b->size, 1));
+	else
+		return (big_to_str(b, b->size, 0));
 }
 
 char		*big_to_str(t_bignum *b, int prec, int dot)

@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 20:48:40 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/09 23:44:42 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/10 18:24:14 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int			is_smth_after(t_bignum *b, int prec)
 	return (0);
 }
 
-void		extra_round_prikol(t_bignum *b)
+void		extra_round(t_bignum *b)
 {
 	int	i;
 	int	carry;
@@ -48,6 +48,20 @@ void		extra_round_prikol(t_bignum *b)
 	}
 }
 
+void		bank_round(char *n1, int n2, int is_after)
+{
+	if (is_after == 0)
+	{
+		if (n2 >= 5 && ((*n1) % 2 != 0))
+			(*n1)++;
+	}
+	else
+	{
+		if (n2 >= 5)
+			(*n1)++;
+	}
+}
+
 void		big_num_round(t_bignum *b, int prec, t_bignum *more)
 {
 	int		i;
@@ -55,16 +69,7 @@ void		big_num_round(t_bignum *b, int prec, t_bignum *more)
 
 	carry = 0;
 	i = prec;
-	if (is_smth_after(b, prec + 1) == 0)
-	{
-		if (b->num[i + 1] >= 5 && (b->num[i] % 2 != 0))
-			b->num[i]++;
-	}
-	else
-	{
-		if (b->num[i + 1] >= 5)
-			b->num[i]++;
-	}
+	bank_round(&b->num[i], b->num[i + 1], is_smth_after(b, prec + 1));
 	while (i >= b->dot)
 	{
 		b->num[i] += carry;
@@ -77,12 +82,7 @@ void		big_num_round(t_bignum *b, int prec, t_bignum *more)
 		--i;
 	}
 	if (carry != 0)
-		extra_round_prikol(more);
-}
-
-int			get_last_num(t_bignum *b)
-{
-	return (b->num[b->size]); // 0.[0]00000000043 change it
+		extra_round(more);
 }
 
 void		big_num_round_int(t_bignum *b, t_bignum *fr)
@@ -90,69 +90,18 @@ void		big_num_round_int(t_bignum *b, t_bignum *fr)
 	int		i;
 	int		carry;
 
-	if (get_last_num)
-}
-
-void		str_round(int is_after, int prec, char *str)
-{
-	int		len;
-	int		i;
-	int		carry;
-
-	i = 0;
-	if (prec > 0)
-	{
-		while (str[i] != '.')
-			i++;
-		printf("\nstr=%s\nprec=%d\n", &str[i], prec);
-	}
-	else
-		return ;
-	i += prec;
-	len = ft_strlen(str);
+	i = b->size;
+	bank_round(&b->num[i], fr->num[fr->dot], is_smth_after(fr, 2));
 	carry = 0;
-	if (is_after == 1)
-	{
-		if (str[i + 1] >= '5' && (str[i] % 2 != 0))
-			str[i]++;
-	}
-	else
-	{
-		if (str[i + 1] >= '5')
-			str[i]++;
-	}
-	if (str[i] > '9')
-	{
-		carry = str[i] / 10;
-		str[i] %= 10;
-	}
-	printf("\nstr=%s\nprec=%d\nisafter%d\n", &str[i], prec, is_after);
 	while (i >= 0)
 	{
-		if (str[i] == '.')
-		{
-			--i;
-			continue ;
-		}
-		str[i] += carry;
+		b->num[i] += carry;
 		carry = 0;
-		if (str[i] > '9')
+		if (b->num[i] >= 10)
 		{
-			carry = str[i] / 10;
-			str[i] %= 10;
+			carry = b->num[i] / 10;
+			b->num[i] %= 10;
 		}
 		--i;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-

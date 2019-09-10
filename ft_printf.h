@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/01 14:20:31 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/08 21:44:49 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/10 21:07:09 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	ft_putnstr_fd(char const *s, int fd, int n);
 */
 
 char					choose_empty_symbol(t_specs *s);
+char					choose_empty_symbolf(t_specs *s, char *dtoa);
 int						put_empty_symbols(unsigned char c, int n, int fd);
 void					append_spec_c(char **str, t_specs *s, int *n_digs);
 void					int_prec_set(char **str, int *n_digs, int prec);
