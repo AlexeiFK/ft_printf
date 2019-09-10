@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 17:55:26 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/10 21:07:13 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/10 23:50:37 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -492,6 +492,7 @@ int		main(int argc, char **argv)
 	END OF TEST */
 	t_specs s;
 	double fl123 = DBL_MAX;
+	long double ld123 = LDBL_MAX;
 	int	ip, im;
 	
 	specs_init(&s);
@@ -616,6 +617,66 @@ int		main(int argc, char **argv)
 	im = print_double(&s, fl123);
 	printf("\n");
 	ip = printf("%050.10f", fl123);
+	printf("\n-----%d-----------%d--------\n", im, ip);
+	specs_init(&s);
+	ld123 = -LDBL_MAX;
+	s.space = 0;
+	s.zero = 1;
+	s.width = 50;
+	s.prec = 10;
+	im = print_long_double(&s, ld123);
+	printf("\n");
+	ip = printf("%050.10Lf", ld123);
+	printf("\n-----%d-----------%d--------\n", im, ip);
+	specs_init(&s);
+	ld123 = 999999999999 + (-1.0 / 3.0);
+	s.space = 0;
+	s.zero = 1;
+	s.width = 50;
+	s.prec = 10;
+	im = print_long_double(&s, ld123);
+	printf("\n");
+	ip = printf("%050.10Lf", ld123);
+	printf("\n-----%d-----------%d--------\n", im, ip);
+	specs_init(&s);
+	ld123 = -INFINITY;
+	s.space = 0;
+	s.zero = 1;
+	s.width = 50;
+	s.prec = 10;
+	im = print_long_double(&s, ld123);
+	printf("\n");
+	ip = printf("%050.10Lf", ld123);
+	printf("\n-----%d-----------%d--------\n", im, ip);
+	specs_init(&s);
+	ld123 = INFINITY;
+	s.space = 0;
+	s.zero = 1;
+	s.width = 50;
+	s.prec = 10;
+	im = print_long_double(&s, ld123);
+	printf("\n");
+	ip = printf("%050.10Lf", ld123);
+	printf("\n-----%d-----------%d--------\n", im, ip);
+	specs_init(&s);
+	ld123 = -1.0 / 3.0;
+	s.space = 0;
+	s.zero = 1;
+	s.width = 50;
+	s.prec = 10;
+	im = print_long_double(&s, ld123);
+	printf("\n");
+	ip = printf("%050.10Lf", ld123);
+	printf("\n-----%d-----------%d--------\n", im, ip);
+	specs_init(&s);
+	ld123 = 2;
+	s.space = 0;
+	s.zero = 1;
+	s.width = 50;
+	s.prec = 10;
+	im = print_long_double(&s, ld123);
+	printf("\n");
+	ip = printf("%050.10Lf", ld123);
 	printf("\n-----%d-----------%d--------\n", im, ip);
 	printf("\nMAX_EXP_D = %d, MIX_EXP_D = %d, MAX_EXP_LD=%d, MIX_EXP_LD%d\n", DBL_MAX_EXP, DBL_MIN_EXP, LDBL_MAX_EXP, LDBL_MIN_EXP);
 	return (0);

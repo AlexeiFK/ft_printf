@@ -6,47 +6,64 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 19:24:30 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/10 19:25:15 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/10 23:50:31 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-signed short int		get_exp(void *mem, int size)
+#include "ft_printf.h"
+
+signed short int		get_expl(void *mem, int size)
 {
 	unsigned char		*str;
 	unsigned short int	exp;
 	unsigned short int	tmp;
+	int					i;
 
+	i = 0;
 	str = (unsigned char*)mem;
+	while (i < size)
+	{
+		printf("\n[%d]mem:%s\n", i, ft_itoa_base_u_zero(str[i], 2, 1, 7));
+		i++;
+	}
 	exp = 0;
 	exp = str[size - 1] & 127;
-	tmp = (str[size - 2] >> 4);
-	exp = (exp << 4) | tmp;
+	tmp = (str[size - 2]);
+	exp = (exp << 8)| tmp;
 	return (exp);
 }
 
-unsigned long long int	get_mant(void *mem, int size)
+unsigned long long int	get_mantl(void *mem, int size)
 {
 	unsigned char			*str;
 	int						i;
 	unsigned long long int	mant;
-	unsigned long long int	tmp[7];
-	t_specs					s;
+	unsigned long long int	tmp[8];
 
 	i = 0;
 	mant = 0;
 	str = (unsigned char*)mem;
-	specs_init(&s);
-	s.base = 2;
-	size -= 2;
+	size -= 3;
 	while (size >= 0)
 	{
 		if (i == 0)
-			tmp[i] = str[size] & 15;
+			tmp[i] = str[size] & 127;
 		else
 			tmp[i] = str[size];
 		size--;
 		i++;
 	}
-	mant = (tmp[6]) | (tmp[5] << 8) | (tmp[4] << 16)
-		| (tmp[3] << 24) | (tmp[2] << 32) | (tmp[1] << 40) | (tmp[0] << 48);
+	mant = (tmp[7]) | (tmp[6] << 8) | (tmp[5] << 16) | (tmp[4] << 24)
+		| (tmp[3] << 32) | (tmp[2] << 40) | (tmp[1] << 48) | (tmp[0] << 56);
 	return (mant);
+}
+
+unsigned char			get_signl(void *mem, int size)
+{
+	unsigned char	*str;
+	unsigned char	bit;
+
+	str = (unsigned char*)mem;
+	bit = str[size - 1] >> 7;
+	return (bit);
+}

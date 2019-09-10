@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 20:52:16 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/10 21:07:07 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/10 21:42:38 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,4 @@ char	choose_empty_symbolf(t_specs *s, char *dtoa)
 	else if (s->zero == 0)
 		return (' ');
 	return (' ');
-}
-
-int		append_zeros()
-{
 }

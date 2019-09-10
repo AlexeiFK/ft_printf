@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/01 14:20:31 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/10 21:07:09 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/10 23:50:33 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct				s_floatd
 	unsigned char			sign;
 	unsigned long long int	manti;
 	signed short int		exp;
+	int						expl;
 	int						is_norm;
 }							t_floatd;
 
@@ -47,6 +48,7 @@ typedef struct				s_floatd
 char	*ft_itoa_base(long long int n, int base, int is_upper_case);
 char	*ft_itoa_base_u(unsigned long long int n, int base, int is_upper_case);
 void	ft_putnstr_fd(char const *s, int fd, int n);
+char	*ft_free_strjoin(char *s1, char *s2);
 
 /*
  ** additional functions for basic output
@@ -58,11 +60,15 @@ int						put_empty_symbols(unsigned char c, int n, int fd);
 void					append_spec_c(char **str, t_specs *s, int *n_digs);
 void					int_prec_set(char **str, int *n_digs, int prec);
 void					print_mem(void *mem, int size);
+int						print_float_sign(int sign, t_specs *s);
 char					*ft_itoa_base_u_zero(unsigned long long int n,
 						int base, int is_upper_case, int zeros);
 unsigned char			get_sign(void *mem, int size);
 signed short int		get_exp(void *mem, int size);
 unsigned long long int	get_mant(void *mem, int size);
+signed short int		get_expl(void *mem, int size);
+unsigned long long int	get_mantl(void *mem, int size);
+unsigned char			get_signl(void *mem, int size);
 
 
 /*

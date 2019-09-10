@@ -1,1 +1,1 @@
-gcc ft_printf.c p_float.c p_char.c p_int.c p_float_helper.c big_num.c big_num_opers.c big_num_power.c p_int_helper.c addtolib.c specs.c wrapper_csp.c wrapper_d.c wrapper_o.c wrapper_u.c wrapper_x.c wrapper_x_big.c float_round.c -Llibft/ -lft -Ilibft
+gcc ft_printf.c p_float.c p_char.c p_int.c p_float_helper.c p_float_l_helper.c p_float_l.c big_num.c big_num_opers.c big_num_power.c p_int_helper.c addtolib.c specs.c wrapper_csp.c wrapper_d.c wrapper_o.c wrapper_u.c wrapper_x.c wrapper_x_big.c float_round.c -Llibft/ -lft -Ilibft
