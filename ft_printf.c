@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 17:55:26 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/11 21:49:14 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/11 22:35:17 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -361,14 +361,21 @@ int		main(void)
 	printf("\n-----%d-----------%d--------\n", im, ip);
 	specs_init(&s);
 	s.prec = 3;
-//	s.width = 40;
-//	s.space = 1;
-//	s.plus = 0;
-	s.minus = 1;
-//	s.sharp = 0;
 	im = print_flag_s(&s, "hello world");
 	printf("\n");
 	ip = printf("%-.3s", "hello world");
+	printf("\n-----%d-----------%d--------\n", im, ip);
+	specs_init(&s);
+	s.prec = 3;
+	im = print_flag_s(&s, NULL);
+	printf("\n");
+	ip = printf("%-.3s", NULL);
+	printf("\n-----%d-----------%d--------\n", im, ip);
+	specs_init(&s);
+	s.width = 100;
+	im = print_flag_s(&s, NULL);
+	printf("\n");
+	ip = printf("%100s", NULL);
 	printf("\n-----%d-----------%d--------\n", im, ip);
 	specs_init(&s);
 	s.prec = 40;
@@ -733,6 +740,20 @@ int		main(void)
 	im = print_long_double(&s, ld123);
 	printf("\n");
 	ip = printf("%050.10Lf", ld123);
+	printf("\n-----%d-----------%d--------\n", im, ip);
+	specs_init(&s);
+	ld123 = 123.4567895444;
+	s.zero = 1;
+	im = print_flag_f_l(&s, ld123);
+	printf("\n");
+	ip = printf("%0Lf", ld123);
+	printf("\n-----%d-----------%d--------\n", im, ip);
+	specs_init(&s);
+	fl123 = 123.4567895444;
+	s.zero = 1;
+	im = print_flag_f(&s, fl123);
+	printf("\n");
+	ip = printf("%0f", fl123);
 	printf("\n-----%d-----------%d--------\n", im, ip);
 	
 //	printf("\nMAX_EXP_D = %d, MIX_EXP_D = %d, MAX_EXP_LD=%d, MIX_EXP_LD%d\n", DBL_MAX_EXP, DBL_MIN_EXP, LDBL_MAX_EXP, LDBL_MIN_EXP);

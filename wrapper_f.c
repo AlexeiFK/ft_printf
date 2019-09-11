@@ -1,33 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wrapper_csp.c                                      :+:      :+:    :+:   */
+/*   wrapper_f.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/02 17:17:59 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/11 22:34:37 by rjeor-mo         ###   ########.fr       */
+/*   Created: 2019/09/11 22:22:36 by rjeor-mo          #+#    #+#             */
+/*   Updated: 2019/09/11 22:29:09 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdlib.h>
 
-int	print_flag_c(t_specs *s, unsigned char c)
+int	print_flag_f(t_specs *s, double c)
 {
-	return (print_char(s, c));
+	if (s->prec == -1)
+		s->prec = 6;
+	return (print_double(s, c));
 }
 
-int	print_flag_s(t_specs *s, char *str)
+int	print_flag_f_l(t_specs *s, long double c)
 {
-	if (str == NULL)
-		return (print_string(s, "(null)"));
-	return (print_string(s, str));
-}
-
-int	print_flag_p(t_specs *s, void *p)
-{
-	s->base = 16;
-	s->sharp = 1;
-	return (print_flag_x_ll(s, (unsigned long long int)p));
+	if (s->prec == -1)
+		s->prec = 6;
+	return (print_long_double(s, c));
 }

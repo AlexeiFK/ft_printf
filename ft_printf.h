@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/01 14:20:31 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/11 22:11:11 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/11 22:26:43 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,9 @@ int		print_long_double(t_specs *s, long double num);
 */
 
 void	specs_init(t_specs *s);
+
+int		print_flag_f(t_specs *s, double f);
+int		print_flag_f_l(t_specs *s, long double f);
 
 int		print_flag_c(t_specs *s, unsigned char c);
 int		print_flag_s(t_specs *s, char *str);
