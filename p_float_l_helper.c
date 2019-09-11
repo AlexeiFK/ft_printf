@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 19:24:30 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/10 23:50:31 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/11 19:24:27 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,6 @@ signed short int		get_expl(void *mem, int size)
 
 	i = 0;
 	str = (unsigned char*)mem;
-	while (i < size)
-	{
-		printf("\n[%d]mem:%s\n", i, ft_itoa_base_u_zero(str[i], 2, 1, 7));
-		i++;
-	}
 	exp = 0;
 	exp = str[size - 1] & 127;
 	tmp = (str[size - 2]);

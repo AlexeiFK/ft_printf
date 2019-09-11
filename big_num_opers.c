@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/08 19:28:39 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/09 21:07:51 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/11 19:18:09 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void		big_num_sqr_p(t_bignum *b)
 	i = b->size;
 	while (i >= 0)
 	{
-		b->num[i] *= 2;
+		b->num[i] <<= 1;
 		b->num[i] += carry;
 		carry = 0;
 		if (b->num[i] >= 10)
@@ -71,7 +71,7 @@ void		big_num_div_two(t_bignum *b)
 	while (i < b->size)
 	{
 		to_div = b->num[i] + rem * 10;
-		b->num[i] = to_div / 2;
+		b->num[i] = to_div >> 1;
 		rem = to_div % 2;
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 16:22:04 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/04 17:19:30 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/11 21:34:09 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	append_spec_c(char **str, t_specs *s, int *n_digits)
 {
 	char	*tmp;
 
+	tmp = NULL;
 	if (s->sharp == 1)
 	{
 		if (s->base == 16)

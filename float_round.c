@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 20:48:40 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/10 18:24:14 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/11 21:33:53 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 int			is_smth_after(t_bignum *b, int prec)
 {
 	int		i;
-	int		ret;
 
 	i = prec;
 	while (i <= b->size)
