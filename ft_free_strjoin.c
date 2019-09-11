@@ -1,39 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   big_num.c                                          :+:      :+:    :+:   */
+/*   ft_free_strjoin.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/05 18:16:07 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/11 21:53:31 by rjeor-mo         ###   ########.fr       */
+/*   Created: 2019/09/11 22:12:38 by rjeor-mo          #+#    #+#             */
+/*   Updated: 2019/09/11 22:13:13 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdlib.h>
-#include "ft_bignum.h"
 
-void		big_num_bzero(t_bignum *b)
+char	*ft_free_strjoin(char *str1, char *str2)
 {
-	ft_memset(b->num, 0, b->size);
-}
+	char	*new;
 
-void		big_num_free(t_bignum *b)
-{
-	free(b->num);
-}
-
-void		big_num_zero(t_bignum *b)
-{
-	b->size = MAX_NDIGITS;
-	b->num = ft_strnew(b->size + 1);
-	ft_memset(b->num, 0, b->size);
-}
-
-void		big_num_zerol(t_bignum *b)
-{
-	b->size = MAX_LNDIGITS;
-	b->num = ft_strnew(b->size + 1);
-	ft_memset(b->num, 0, b->size);
+	new = ft_strjoin(str1, str2);
+	free(str1);
+	free(str2);
+	return (new);
 }

@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/01 14:20:31 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/11 20:37:00 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/11 22:11:11 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ char	*ft_itoa_base(long long int n, int base, int is_upper_case);
 char	*ft_itoa_base_u(unsigned long long int n, int base, int is_upper_case);
 void	ft_putnstr_fd(char const *s, int fd, int n);
 char	*ft_free_strjoin(char *s1, char *s2);
+char	*ft_dtoa(double f, int prec);
+char	*ft_ldtoa(long double f, int prec);
 
 /*
  ** additional functions for basic output

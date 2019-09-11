@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 20:52:16 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/10 21:42:38 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/11 21:55:01 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ unsigned long long int	get_mant(void *mem, int size)
 	return (mant);
 }
 
-char	choose_empty_symbolf(t_specs *s, char *dtoa)
+char					choose_empty_symbolf(t_specs *s, char *dtoa)
 {
 	if ((dtoa[0] == 'i') || (dtoa[0] == 'n'))
 		return (' ');

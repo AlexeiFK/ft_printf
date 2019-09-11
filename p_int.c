@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/01 16:11:14 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/11 21:40:27 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/11 21:57:12 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	print_sign_int(t_specs *s, long long int c)
 		ft_putchar_fd(' ', s->fd);
 }
 
-int		print_int(t_specs *s, long long int c)
+int			print_int(t_specs *s, long long int c)
 {
 	char		empty;
 	int			n_digits;
@@ -42,7 +42,8 @@ int		print_int(t_specs *s, long long int c)
 	n_digits = ft_strlen(itoa_out);
 	if (s->prec != -1 && n_digits < s->prec)
 		int_prec_set(&itoa_out, &n_digits, s->prec);
-	else if (s->prec == -1 && s->zero == 1 && s->width > n_digits && s->minus == 0)
+	else if (s->prec == -1 && s->zero == 1 &&
+			s->width > n_digits && s->minus == 0)
 		int_prec_set(&itoa_out, &n_digits, s->width - 1);
 	empty = choose_empty_symbol(s);
 	n_digits += get_sign_int(s, c);
@@ -56,7 +57,7 @@ int		print_int(t_specs *s, long long int c)
 	return (n_printed + n_digits);
 }
 
-int		print_uint(t_specs *s, unsigned long long int c)
+int			print_uint(t_specs *s, unsigned long long int c)
 {
 	char		empty;
 	char		*itoa_out;

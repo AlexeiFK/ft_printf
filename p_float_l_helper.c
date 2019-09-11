@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 19:24:30 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/11 19:24:27 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/11 21:56:28 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ signed short int		get_expl(void *mem, int size)
 	exp = 0;
 	exp = str[size - 1] & 127;
 	tmp = (str[size - 2]);
-	exp = (exp << 8)| tmp;
+	exp = (exp << 8) | tmp;
 	return (exp);
 }
 

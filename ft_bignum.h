@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 18:22:28 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/10 22:29:54 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/11 22:21:06 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,6 @@ char	*big_to_str(t_bignum *b, int prec, int dot);
 void	str_round(int after, int prec, char *str);
 int		is_smth_after(t_bignum *b, int prec);
 void	ft_rounding(t_bignum *b, t_bignum *fr, int prec);
+void	ft_roundingl(t_bignum *b, t_bignum *fr, int prec);
 
 #endif
