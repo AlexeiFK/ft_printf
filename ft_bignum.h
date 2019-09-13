@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 18:22:28 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/11 22:45:45 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/13 15:02:34 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,10 @@ void						get_real_frac(t_bignum *res,
 void						get_real_intl(t_bignum *res,
 								char *mant, int exp, int norm);
 void						get_real_fracl(t_bignum *res,
+								char *mant, int exp, int norm);
+void						get_real_intl_o(t_bignum *res,
+								char *mant, int exp, int norm);
+void						get_real_fracl_o(t_bignum *res,
 								char *mant, int exp, int norm);
 void						big_num_sqr_p(t_bignum *b1);
 void						big_num_two_pow(int power, t_bignum *res);

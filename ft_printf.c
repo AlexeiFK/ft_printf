@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 17:55:26 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/11 22:35:17 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/13 15:13:14 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -761,7 +761,6 @@ int		main(void)
 	im = print_flag_f_l(&s, ld123);
 	printf("\n");
 	ip = printf("%0Lf", ld123);
-//	ip = printf("%0Lf", ld123);
 	printf("\n-----%d-----------%d--------\n", im, ip);
 	specs_init(&s);
 	fl123 = DBL_MAX;
@@ -769,6 +768,30 @@ int		main(void)
 	im = print_flag_f(&s, fl123);
 	printf("\n");
 	ip = printf("%0f", fl123);
+	printf("\n-----%d-----------%d--------\n", im, ip);
+	specs_init(&s);
+	ld123 = 5.88e-39;
+	s.zero = 1;
+	s.prec = 2000;
+	im = print_flag_f_l(&s, ld123);
+	printf("\n");
+	ip = printf("%0.2000Lf", ld123);
+	printf("\n-----%d-----------%d--------\n", im, ip);
+	specs_init(&s);
+	ld123 = -5.88e-39;
+	s.zero = 1;
+	s.prec = 2000;
+	im = print_flag_f_l(&s, ld123);
+	printf("\n");
+	ip = printf("%0.2000Lf", ld123);
+	printf("\n-----%d-----------%d--------\n", im, ip);
+	specs_init(&s);
+	fl123 = 2.22509e-308;
+	s.zero = 1;
+	s.prec = 500;
+	im = print_flag_f(&s, fl123);
+	printf("\n");
+	ip = printf("%0.500f", fl123);
 	printf("\n-----%d-----------%d--------\n", im, ip);
 	
 //	printf("\nMAX_EXP_D = %d, MIX_EXP_D = %d, MAX_EXP_LD=%d, MIX_EXP_LD%d\n", DBL_MAX_EXP, DBL_MIN_EXP, LDBL_MAX_EXP, LDBL_MIN_EXP);
