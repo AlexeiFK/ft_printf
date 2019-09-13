@@ -755,6 +755,21 @@ int		main(void)
 	printf("\n");
 	ip = printf("%0f", fl123);
 	printf("\n-----%d-----------%d--------\n", im, ip);
+	specs_init(&s);
+	ld123 = LDBL_MAX;
+	s.zero = 1;
+	im = print_flag_f_l(&s, ld123);
+	printf("\n");
+	ip = printf("%0Lf", ld123);
+//	ip = printf("%0Lf", ld123);
+	printf("\n-----%d-----------%d--------\n", im, ip);
+	specs_init(&s);
+	fl123 = DBL_MAX;
+	s.zero = 1;
+	im = print_flag_f(&s, fl123);
+	printf("\n");
+	ip = printf("%0f", fl123);
+	printf("\n-----%d-----------%d--------\n", im, ip);
 	
 //	printf("\nMAX_EXP_D = %d, MIX_EXP_D = %d, MAX_EXP_LD=%d, MIX_EXP_LD%d\n", DBL_MAX_EXP, DBL_MIN_EXP, LDBL_MAX_EXP, LDBL_MIN_EXP);
 	return (0);
