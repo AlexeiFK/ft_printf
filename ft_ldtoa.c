@@ -55,8 +55,8 @@ char	*ft_ldtoa(long double f, int prec)
 	big_num_zerol(&int_frac[0]);
 	big_num_zerol(&int_frac[1]);
 	str[0] = ft_itoa_base_u_zero(fn.manti, 2, 1, 62);
-	get_real_intl(&int_frac[0], str[0], fn.exp, fn.is_norm);
-	get_real_fracl(&int_frac[1], str[0], fn.exp, fn.is_norm);
+	get_real_intl_o(&int_frac[0], str[0], fn.exp, fn.is_norm);
+	get_real_fracl_o(&int_frac[1], str[0], fn.exp, fn.is_norm);
 	free(str[0]);
 	int_frac[0].dot = int_frac[0].size;
 	ft_roundingl(&int_frac[0], &int_frac[1], prec);
@@ -66,6 +66,77 @@ char	*ft_ldtoa(long double f, int prec)
 	big_num_free(&int_frac[0]);
 	big_num_free(&int_frac[1]);
 	return (str[0]);
+}
+
+void	get_real_intl_o(t_bignum *res, char *mant, int exp, int is_norm)
+{
+	int			i;
+	t_bignum	tmp;
+	int		flag;
+
+	big_num_zerol(&tmp);
+	exp -= 16383;
+	i = 0;
+	flag = 0;
+	if (is_norm == 1 && exp >= 0)
+	{
+		big_num_two_pow(exp, &tmp);
+		big_num_add_p(res, &tmp);
+		flag = 1;
+		big_num_div_two(&tmp);
+		exp--;
+	}
+	while (mant[i] != '\0' && exp >= 0)
+	{
+		if (mant[i] == '1' && flag == 1)
+			big_num_add_p(res, &tmp);
+		else if (mant[i] == '1' && flag == 0)
+		{
+			big_num_two_pow(exp, &tmp);
+			big_num_add_p(res, &tmp);
+			flag = 1;
+		}
+		big_num_div_two(&tmp);
+		exp--;
+		i++;
+	}
+	big_num_free(&tmp);
+}
+
+void	get_real_fracl_o(t_bignum *res, char *mant, int exp, int is_norm)
+{
+	int			i;
+	t_bignum	tmp;
+	int			flag;
+
+	big_num_zerol(&tmp);
+	exp -= 16383;
+	i = 0;
+	flag = 0;
+	if (is_norm == 1 && exp < 0)
+	{
+		big_num_two_pow(exp, &tmp);
+		big_num_add_p(res, &tmp);
+		flag = 1;
+		big_num_div_two(&tmp);
+	}
+	exp -= is_norm;
+	while (mant[i] != '\0')
+	{
+		if (mant[i] == '1' && exp < 0 && flag == 1)
+			big_num_add_p(res, &tmp);
+		else if (mant[i] == '1' && exp < 0 && flag == 0)
+		{
+			big_num_two_pow(exp, &tmp);
+			big_num_add_p(res, &tmp);
+			flag = 1;
+		}
+		big_num_div_two(&tmp);
+		exp--;
+		i++;
+	}
+	big_num_free(&tmp);
+	res->dot = 1;
 }
 
 void	get_real_intl(t_bignum *res, char *mant, int exp, int is_norm)

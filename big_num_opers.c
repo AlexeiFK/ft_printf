@@ -66,9 +66,9 @@ void		big_num_div_two(t_bignum *b)
 	i = 0;
 	rem = 0;
 	to_div = 0;
-	while (b->num[i] == 0)
+	while (b->num[i] == 0 && i <= b->size)
 		i++;
-	while (i < b->size)
+	while (i <= b->size)
 	{
 		to_div = b->num[i] + rem * 10;
 		b->num[i] = to_div >> 1;
