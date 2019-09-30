@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/24 17:52:32 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2019/09/14 21:00:34 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/09/30 21:03:29 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <string.h>
 # include <stdarg.h>
+# define BUFF_SIZE 1
 
 typedef struct		s_list
 {
@@ -27,6 +28,7 @@ int					ft_vprintf(const char *str, va_list list);
 int					ft_dprintf(int fd, const char *str, ...);
 int					ft_vdprintf(int fd, const char *str, va_list list);
 long long			ft_atoll(const char *str);
+int					ft_gnl(const int fd, char **line, int flag);
 void				ft_putstr(char const *s);
 void				ft_putstr_fd(char const *s, int fd);
 void				ft_putchar_fd(char c, int fd);
