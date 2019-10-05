@@ -6,7 +6,7 @@
 /*   By: rjeor-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/26 05:18:32 by rjeor-mo          #+#    #+#             */
-/*   Updated: 2018/11/30 22:25:23 by rjeor-mo         ###   ########.fr       */
+/*   Updated: 2019/10/05 17:39:42 by rjeor-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char			**ft_strsplit(char const *s, char c)
 		return (NULL);
 	size = ft_count_w(s, c);
 	i = 0;
-	if (!(new = (char**)malloc(sizeof(char*) * size + 1)))
+	if (!(new = (char**)malloc(sizeof(char*) * (size + 1))))
 		return (NULL);
 	while (i < size)
 	{
